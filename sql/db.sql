@@ -50,7 +50,7 @@ CREATE TABLE `Stranka` (
 
 CREATE TABLE `Naročilo` (
 	`id_naročilo` INT NOT NULL AUTO_INCREMENT,
-	`Datum` DATETIME NOT NULL DEFAULT GETDATE(),
+	`Datum` DATETIME NOT NULL DEFAULT NOW(),
 	`id_stranka` INT NOT NULL,
 	`Status` varchar(255),
 /**
@@ -68,7 +68,7 @@ CREATE TABLE `Produkt` ( /** izdelki v trgovini **/
 	`id_produkt` INT NOT NULL AUTO_INCREMENT,
 	`Avtor` VARCHAR(255) NOT NULL,
 	`Naslov` VARCHAR(255) NOT NULL,
-	`Leto izdaje` INT NOT NULL,
+	`Leto_izdaje` INT NOT NULL,
 	`Cena` DECIMAL NOT NULL,
 	`Aktiviran` BOOLEAN NOT NULL DEFAULT true, /** false - deaktiviran s strani administratorja, ne more se prijavit **/
 	PRIMARY KEY (`id_produkt`)
@@ -99,10 +99,10 @@ ALTER TABLE `Košarica` ADD CONSTRAINT `Košarica_fk1` FOREIGN KEY (`id_stranka`
 
 
 /** DODAJANJE ZAČETNIH PRODUKTOV V BAZO **/
-INSERT INTO `Produkt` (`id_produkt`, `Avtor`,`Naslov`,`Leto izdaje`,`Cena`)
+INSERT INTO `Produkt` (`id_produkt`, `Avtor`,`Naslov`,`Leto_izdaje`,`Cena`)
 VALUES (1, 'Matt Haig', 'The Midnight Library', 2021, 9.5),
 (2, 'Taylor Jenkins Reid', 'The Seven Husbands of Evelyn Hugo', 2021, 10.5),
-(3, 'Sally Rooney', 'Normal People', 2020, 14)
+(3, 'Sally Rooney', 'Normal People', 2020, 14),
 (4, 'Madeline Miller', 'Circe', 2019, 11.3 ),
 (5, 'Kiley Reid', 'Such a Fun Age', 2020, 10.5);
 
