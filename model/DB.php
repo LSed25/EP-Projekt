@@ -2,7 +2,6 @@
 
 class DBInit {
     
-    //TODO spremenljivke
 
     private static $host = "localhost";
     private static $user = "root";

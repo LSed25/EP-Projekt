@@ -6,7 +6,13 @@ require_once("ViewHelper.php");
 class StoreController {
     
     public static function index() {
-        echo ViewHelper::render("view/view-anon.php");
+        echo ViewHelper::render("view/view-stranka.php", [
+            "books" => StoreDB::getAllBooks()
+        ]);
+    }
+    
+    public static function pridobiEno($id) {
+        echo ViewHelper::render("view/view-knjiga.php", StoreDB::get(["id" => $id]));
     }
     
     public static function registerForm($values = [
@@ -26,8 +32,9 @@ class StoreController {
         $data = filter_input_array(INPUT_POST, self::getRules());
 
         if (self::checkValues($data)) {
-            $id = StoreDB::insert($data);
-            echo ViewHelper::redirect(BASE_URL . "store/" . $id);
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+            StoreDB::insertCustomer($data);
+            echo ViewHelper::redirect(BASE_URL . "store/view/");
         } else {
             self::registerForm($data);
         }
@@ -38,6 +45,13 @@ class StoreController {
         "password" => ""
     ]) {
         echo ViewHelper::render("view/view-login.php", $values);
+    }
+    
+    public static function sysLoginForm($values = [
+        "email" => "",
+        "password" => ""
+    ]) {
+        echo ViewHelper::render("view/syslogin.php", $values);
     }
     
     
@@ -53,6 +67,7 @@ class StoreController {
 
         return $result;
     }
+    
 
     /**
      * Returns an array of filtering rules for manipulation books
@@ -63,7 +78,12 @@ class StoreController {
             'firstname' => FILTER_SANITIZE_SPECIAL_CHARS,
             'lastname' => FILTER_SANITIZE_SPECIAL_CHARS,
             'email' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'password' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'password' => [ 
+                'filter' => FILTER_SANITIZE_SPECIAL_CHARS,
+                'options' => [
+                    'min_length' => 9
+                ]
+            ],
             'ulica' => FILTER_SANITIZE_SPECIAL_CHARS,
             'hisnast' => FILTER_VALIDATE_INT,
             'posta' => FILTER_SANITIZE_SPECIAL_CHARS,

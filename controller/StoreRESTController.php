@@ -16,7 +16,8 @@ class StoreRESTController {
         $data = filter_input_array(INPUT_POST, StoreController::getRules());
 
         if (StoreController::checkValues($data)) {
-            $id = StoreDB::insert($data);
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+            $id = StoreDB::insertCustomer($data);
             echo ViewHelper::renderJSON("", 201);
             ViewHelper::redirect(BASE_URL . "api/store/user/$id");
         } else {

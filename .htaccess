@@ -2,4 +2,9 @@ RewriteEngine On
 RewriteBase /netbeans/EP-Projekt/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{HTTPS} on
 RewriteRule ^(.*) index.php/$1 [L,PT,QSA]
+
+SSLVerifyClient optional
+SSLVerifyDepth 1
+SSLOptions +ExportCertData

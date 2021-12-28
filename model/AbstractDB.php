@@ -159,4 +159,15 @@ abstract class AbstractDB {
     }
 
     // TODO funkcije
+    public static abstract function get(array $id);
+
+    public static abstract function getAllBooks();
+
+    public static abstract function insertCustomer(array $params);
+    
+    public static abstract function insertArticle(array $params);
+
+    public static abstract function update(array $params);
+
+    public static abstract function delete(array $id);
 }

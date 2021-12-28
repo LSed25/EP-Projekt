@@ -4,7 +4,7 @@
 session_start();
 
 require_once("controller/StoreController.php");
-//require_once("controller/StoreRESTController.php");
+require_once("controller/StoreRESTController.php");
 
 define("BASE_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php"));
 define("IMAGES_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/images/");
@@ -14,7 +14,7 @@ $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
 
 $urls = [
     "/^store$/" => function ($method) {
-        StoreController::index();
+        StoreController::loginForm();
     },
     "/^store\/register$/" => function ($method) {
         if ($method == "POST") {
@@ -30,15 +30,22 @@ $urls = [
             StoreController::loginForm();
         }
     },
-    
-    /*"jokes/edit" => function () {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            JokesController::edit();
+    "/^store\/syslogin$/" => function ($method) {
+        if ($method == "POST") {
+            StoreController::sysLogin();
         } else {
-            JokesController::editForm();
+            StoreController::sysLoginForm();
         }
     },
-    "jokes/delete" => function () {
+    
+    "/^store\/view$/" => function () {
+        StoreController::index();
+    },
+            
+    "/^store\/view\/(\d+)$/" => function ($method, $id) {
+        StoreController::pridobiEno($id);
+    },
+    /*"jokes/delete" => function () {
         JokesController::delete();
     },
     "" => function () {
@@ -48,6 +55,7 @@ $urls = [
         ViewHelper::redirect(BASE_URL . "store");
     },
     # REST API
+    
     /*"/^api\/books\/(\d+)$/" => function ($method, $id) {
         // TODO: izbris knjige z uporabo HTTP metode DELETE
         switch ($method) {
