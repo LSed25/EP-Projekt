@@ -17,7 +17,7 @@
         <label>Poštna št.: <input type="number" name="postnast" value="<?= $postnast ?>" required /></label></p>
     <p><button>Registracija</button></p>
 </form>
-<a href="<?= BASE_URL . "store/view" ?>">idk</a>
+<a href="<?= BASE_URL . "store/" ?>">idk</a>
 
 <?php echo password_hash("testnogeslo", PASSWORD_DEFAULT); 
        if(password_verify("testnogeslo", password_hash("testnogeslo", PASSWORD_DEFAULT))) {

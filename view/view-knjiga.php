@@ -13,5 +13,5 @@
     <li>Leto izdaje: <b><?= $Leto_izdaje ?></b></li>
 </ul>
 
-<p><a href="<?= BASE_URL . "store/view/" ?>">Vse knjige</a></p>
+<p><a href="<?= BASE_URL . "store/" ?>">Vse knjige</a></p>
 

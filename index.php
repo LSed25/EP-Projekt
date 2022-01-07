@@ -14,7 +14,7 @@ $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
 
 $urls = [
     "/^store$/" => function ($method) {
-        StoreController::loginForm();
+        StoreController::index();
     },
     "/^store\/register$/" => function ($method) {
         if ($method == "POST") {
@@ -42,7 +42,7 @@ $urls = [
         StoreController::index();
     },
             
-    "/^store\/view\/(\d+)$/" => function ($method, $id) {
+    "/^store\/(\d+)$/" => function ($method, $id) {
         StoreController::pridobiEno($id);
     },
     /*"jokes/delete" => function () {

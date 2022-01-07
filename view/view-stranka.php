@@ -9,7 +9,7 @@
 <ul>
 
     <?php foreach ($books as $book): ?>
-        <li><a href="<?= BASE_URL . "store/view/" . $book["id"] ?>"><?= $book["Avtor"] ?>: 
+        <li><a href="<?= BASE_URL . "store/" . $book["id"] ?>"><?= $book["Avtor"] ?>: 
         	<?= $book["Naslov"] ?> (<?= $book["Leto_izdaje"] ?>)</a></li>
     <?php endforeach; ?>
 
