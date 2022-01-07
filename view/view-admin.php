@@ -37,4 +37,14 @@
     </form>
 </div>
 
-<p><button type="button" action="<?= BASE_URL . "store/admin/prodajalec" ?>">Upravljanje s prodajalci</button></p>
+<div>
+    <h2>Upravljanje s prodajalci</h2>
+
+    <h3>Izberi prodajalca:</h3>
+
+    <form action="<?= BASE_URL . "store/admin/prodajalec" ?>" method="get">
+         <label for="id"><b>ID prodajalca:</b></label>
+         <input type="number" placeholder="Vnesi ime prodajalca" name="id" min="1">
+         <button type="submit">Izberi prodajalca</button>
+    </form>
+</div>

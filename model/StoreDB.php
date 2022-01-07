@@ -25,9 +25,9 @@ class StoreDB extends AbstractDB {
         $db = DB::getInstance();
 
         $statement = $db->prepare("SELECT id FROM Stranka
-            WHERE Enaslov=:email AND Geslo=:password");
+            WHERE Enaslov=:email AND Geslo=:geslo");
         $statement->bindParam(":email", $email, PDO::PARAM_STR);
-        $statement->bindParam(":password", $password, PDO::PARAM_STR);
+        $statement->bindParam(":geslo", $password, PDO::PARAM_STR);
         $statement->execute();
 
         return $statement->fetch();

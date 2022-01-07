@@ -9,8 +9,7 @@ class AdminController {
         if ($_SESSION["loggedIn"] == true && $_SESSION["role"] == "administrator") {
             $podatki = AdminDB::getAdminData($_SESSION["id"]);
 
-            echo ViewHelper::render("view/view-admin.php", $podatki, $message);
-            
+            echo ViewHelper::render("view/view-admin.php", $podatki, $message);            
         }
         else {
             echo ViewHelper::redirect(BASE_URL . "store/");
@@ -21,12 +20,79 @@ class AdminController {
         $podatki = filter_input_array(INPUT_POST, self::getRules());
 
         if (self::checkValues($podatki)) {
-            AdminDB::updateAdmin($podatki);
+            $id = $_SESSION["id"];
+            $ime = $podatki["name"];
+            $priimek = $podatki["surname"];
+            $email = $podatki["email"];
+            AdminDB::updateAdmin($id, $ime, $priimek, $email);
             $message = "Podatki so bili uspešno posodobljeni.";
             adminForm($message);
         } else {
             $message = "Prišlo je do napake pri posodabljanju podatkov.";
             adminForm($message);
+        }
+    }
+
+    public static function adminProdajalecForm($message = "", $id = NULL) {
+        if ($_SESSION["loggedIn"] == true && $_SESSION["role"] == "administrator") {
+            if ($id == NULL) {
+                $id = $_GET["id"];
+            }
+            $podatki = AdminDB::getSellerData($id);
+
+            if ($podatki != NULL) {
+                echo ViewHelper::render("view/view-admin-prodajalec.php", $podatki, $message);
+            }
+            else {
+                $message = "Prodajalca ni bilo mogoče najti.";
+                $podatki = AdminDB::getAdminData($_SESSION["id"]);
+                echo ViewHelper::render("view/view-admin.php", $podatki, $message);
+            }
+        }
+    }
+
+    public static function adminProdajalec() {
+        $do = $_POST["do"];
+
+        switch($do){
+            case "add":
+                $ime = $_POST["name"];
+                $priimek = $_POST["surname"];
+                $email = $_POST["email"];
+                $geslo = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+                AdminDB::insertSeller($ime, $priimek, $email, $geslo);
+
+                $message = "Prodajalec je bil uspešno dodan.";
+                adminForm($message);
+                break;
+            case "update":
+                $id = $_POST["id"];
+                $ime = $_POST["name"];
+                $priimek = $_POST["surname"];
+                $email = $_POST["newemail"];
+                $geslo = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+                AdminDB::updateSeller($ime, $priimek, $email, $geslo);
+
+                $message = "Prodajalec je bil uspešno posodobljen.";
+                adminProdajalecForm($message, $id);
+                break;
+            case "status":
+                $id = $_POST["id"];
+
+                if ($_POST["status"] == true) {
+                    $updatestatus = false;
+                    $message = "Prodajalec je bil uspešno deaktiviran.";
+                }
+                else {
+                    $updatestatus = true;
+                    $message = "Prodajalec je bil uspešno aktiviran.";
+                }
+
+                AdminDB::activateSeller($id);
+                adminProdajalecForm($message);
+                break;  
         }
     }
 

@@ -15,9 +15,9 @@
         <label>Hišna št.: <input type="number" name="hisnast" value="<?= $hisnast ?>" required /></label></p>
     <p><label>Pošta: <input type="text" name="posta" value="<?= $posta ?>" required /></label>
         <label>Poštna št.: <input type="number" name="postnast" value="<?= $postnast ?>" required /></label></p>
-    <p><button>Registracija</button></p>
+    <p><button type="submit">Registracija</button></p>
 </form>
-<a href="<?= BASE_URL . "store/" ?>">idk</a>
+<a href="<?= BASE_URL . "store/" ?>">Nazaj na seznam izdelkov</a>
 
 <?php echo password_hash("testnogeslo", PASSWORD_DEFAULT); 
        if(password_verify("testnogeslo", password_hash("testnogeslo", PASSWORD_DEFAULT))) {

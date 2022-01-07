@@ -7,20 +7,22 @@
         <h1>Sistemska prijava</h1>
 
         <?php
-        $authorized_users = ["admin", "prodaja"];
+        $authorized_roles = ["administrator", "prodajalec"];
 
         $client_cert = filter_input(INPUT_SERVER, "SSL_CLIENT_CERT");
         $cert_data = openssl_x509_parse($client_cert);
 
         $role = $cert_data["subject"]["role"];
         
-        if($role == "administrator" || $role == "prodajalec") { ?>
+        if(in_array($role, $authorized_roles)) { ?>
             <form action="<?= BASE_URL . "store/login" ?>" method="post">
-               <p><label>E-naslov: <input type="email" name="email" value="<?= $email ?>" /></label></p>
-               <p><label>Geslo: <input type="password" name="password" value="<?= $password ?>" /></label></p>
+               <p><label>E-naslov: <input type="email" name="email" placeholder="Vnesite e-naslov" /></label></p>
+               <p><label>Geslo: <input type="password" name="password" placeholder="Vnesite geslo" /></label></p>
                <input type="hidden" name="role" value="<?= $role ?>">
                <p><button>Prijava</button></p>
             </form>
+
+            <div><?php if(isset($message)) { echo $message; } ?></div>
         <?php 
         }
         else { ?>

@@ -63,6 +63,14 @@ $urls = [
         }
     },
     
+    "/^store\/admin\/prodajalec$/" => function ($method) {
+        if ($method == "POST") {
+            AdminController::adminProdajalec();
+        } else {
+            AdminController::adminProdajalecForm();
+        }
+    },
+
     "/^$/" => function () {
         ViewHelper::redirect(BASE_URL . "store");
     },

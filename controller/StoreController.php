@@ -77,14 +77,16 @@ class StoreController {
             }
         }
         else if ($role == "administrator") {
-            $id_admin = StoreDB::getAdminID($email, $password);
+            $id_admin = AdminDB::getAdminID($email, $password);
 
             if ($id != NULL) {
-                $_SESSION["id"] = $id;
+                $_SESSION["id"] = $id_admin;
                 $_SESSION["role"] = $role;
                 $_SESSION["loggedIn"] = true;
+
+                $podatki = AdminDB::getAdminData($id_admin);
                 
-                echo ViewHelper::redirect(BASE_URL . "store/admin/");
+                echo ViewHelper::render("view/view-admin.php", $podatki);
             }
             else {
                 $_SESSION["loggedIn"] = false;
@@ -96,11 +98,13 @@ class StoreController {
             $id_prodajalec = StoreDB::getSellerID($email, $password);
 
             if ($id != NULL) {
-                $_SESSION["id"] = $id;
+                $_SESSION["id"] = $id_prodajalec;
                 $_SESSION["role"] = $role;
                 $_SESSION["loggedIn"] = true;
+
+                $podatki = AdminDB::getAdminData($id_prodajalec);
                 
-                echo ViewHelper::redirect(BASE_URL . "store/prodajalec/");
+                echo ViewHelper::render("view/view-prodajalec.php", $podatki);
             }
             else {
                 $_SESSION["loggedIn"] = false;
@@ -125,6 +129,7 @@ class StoreController {
             if ($confirm == $oldpassword) {
                  StoreDB::changePassword($id, $newpassword);
             }
+
             echo ViewHelper::render("view/view-stranka-profil.php");
         }
         else if ($role == "administrator") {
@@ -150,6 +155,7 @@ class StoreController {
         unset($_SESSION);
         session_start();
         $_SESSION["loggedIn"] = false;
+        $_SESSION["role"] = "anon";
 
         echo ViewHelper::redirect(BASE_URL . "store/");
     }

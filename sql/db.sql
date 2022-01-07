@@ -38,7 +38,7 @@ CREATE TABLE `Stranka` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`Ime` VARCHAR(255) COLLATE utf8_slovenian_ci NOT NULL,
 	`Priimek` VARCHAR(255) COLLATE utf8_slovenian_ci NOT NULL,
-        `Enaslov` VARCHAR(255) NOT NULL UNIQUE,
+    `Enaslov` VARCHAR(255) NOT NULL UNIQUE,
 	`Geslo` VARCHAR(255) NOT NULL,
 	`Ulica` VARCHAR(255) COLLATE utf8_slovenian_ci NOT NULL,
 	`Hisna_st` INT NOT NULL,

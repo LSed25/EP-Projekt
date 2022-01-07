@@ -7,9 +7,9 @@ class StoreDB extends AbstractDB {
         $db = DB::getInstance();
 
         $statement = $db->prepare("SELECT id_admin FROM Administrator
-            WHERE Enaslov=:email AND Geslo=:password");
+            WHERE Enaslov=:email AND Geslo=:geslo");
         $statement->bindParam(":email", $email, PDO::PARAM_STR);
-        $statement->bindParam(":password", $password, PDO::PARAM_STR);
+        $statement->bindParam(":geslo", $password, PDO::PARAM_STR);
         $statement->execute();
 
         return $statement->fetch();
@@ -19,7 +19,7 @@ class StoreDB extends AbstractDB {
         $db = DB::getInstance();
 
         $statement = $db->prepare("SELECT * FROM Administrator
-            WHERE id=:id");
+            WHERE id_admin=:id");
         $statement->bindParam(":id", $id, PDO::PARAM_INT);
         $statement->execute();
 
@@ -30,9 +30,9 @@ class StoreDB extends AbstractDB {
         $db = DB::getInstance();
 
         $statement = $db->prepare("SELECT id_prodajalec FROM Prodajalec
-            WHERE Enaslov=:email AND Geslo=:password");
+            WHERE Enaslov=:email AND Geslo=:geslo");
         $statement->bindParam(":email", $email, PDO::PARAM_STR);
-        $statement->bindParam(":password", $password, PDO::PARAM_STR);
+        $statement->bindParam(":geslo", $password, PDO::PARAM_STR);
         $statement->execute();
 
         return $statement->fetch();
@@ -42,7 +42,7 @@ class StoreDB extends AbstractDB {
         $db = DB::getInstance();
 
         $statement = $db->prepare("SELECT * FROM Prodajalec
-            WHERE id=:id");
+            WHERE id_prodajalec=:id");
         $statement->bindParam(":id", $id, PDO::PARAM_INT);
         $statement->execute();
 
@@ -72,12 +72,67 @@ class StoreDB extends AbstractDB {
         return $statement->fetch();
     }
 
+    public static function updateAdmin($id, $ime, $priimek, $email) {
+        $db = DB::getInstance();
+
+        $statement = $db->prepare("UPDATE Administrator SET Ime=:ime, Priimek=:priimek, Enaslov=:email
+            WHERE id_admin=:id");
+        $statement->bindParam(":id", $id, PDO::PARAM_INT);
+        $statement->bindParam(":ime", $ime, PDO::PARAM_STR);
+        $statement->bindParam(":priimek", $priimek, PDO::PARAM_STR);
+        $statement->bindParam(":email", $email, PDO::PARAM_STR);
+        $statement->execute();
+
+        return $statement->fetch();
+    }
+
     public static function getSellerPassword($id) {
         $db = DB::getInstance();
 
         $statement = $db->prepare("SELECT Geslo FROM Prodajalec
             WHERE id_prodajalec=:id");
         $statement->bindParam(":id", $id, PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetch();
+    }
+
+    public static function insertSeller($ime, $priimek, $email, $geslo) {
+        $db = DB::getInstance();
+
+        $statement = $db->prepare("INSERT INTO Prodajalec (Ime, Priimek, Enaslov, Geslo)
+            VALUES (:ime, :priimek, :email, :geslo)");
+        $statement->bindParam(":ime", $ime, PDO::PARAM_STR);
+        $statement->bindParam(":priimek", $priimek, PDO::PARAM_STR);
+        $statement->bindParam(":email", $email, PDO::PARAM_STR);
+        $statement->bindParam(":geslo", $geslo, PDO::PARAM_STR);
+        $statement->execute();
+
+        return $statement->fetch();
+    }
+
+    public static function updateSeller($id, $ime, $priimek, $email, $geslo) {
+        $db = DB::getInstance();
+
+        $statement = $db->prepare("UPDATE Prodajalec SET Ime=:ime, Priimek=:priimek, Enaslov=:email, Geslo=:geslo
+            WHERE id_prodajalec=:id");
+        $statement->bindParam(":id", $id, PDO::PARAM_INT);
+        $statement->bindParam(":ime", $ime, PDO::PARAM_STR);
+        $statement->bindParam(":priimek", $priimek, PDO::PARAM_STR);
+        $statement->bindParam(":email", $email, PDO::PARAM_STR);
+        $statement->bindParam(":geslo", $geslo, PDO::PARAM_STR);
+        $statement->execute();
+
+        return $statement->fetch();
+    }
+
+    public static function activateSeller($id, $updatestatus) {
+        $db = DB::getInstance();
+
+        $statement = $db->prepare("UPDATE Prodajalec
+           SET Aktiviran=:newstatus WHERE id_prodajalec=:id");
+        $statement->bindParam(":id", $id, PDO::PARAM_INT);
+        $statement->bindParam(":newstatus", $updatestatus, PDO::PARAM_BOOL);
         $statement->execute();
 
         return $statement->fetch();
