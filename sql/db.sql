@@ -90,7 +90,7 @@ CREATE TABLE `Košarica` (
 
 ALTER TABLE `Naročilo` ADD CONSTRAINT `Naročilo_fk0` FOREIGN KEY (`id_stranka`) REFERENCES `Stranka`(`id`);
 
-ALTER TABLE `Produkt_košarica` ADD CONSTRAINT `Produkt_košarica_fk0` FOREIGN KEY (`id_produkt`) REFERENCES `Produkt`(`id`);
+ALTER TABLE `Produkt_košarica` ADD CONSTRAINT `Produkt_košarica_fk0` FOREIGN KEY (`id_pk`) REFERENCES `Produkt`(`id`);
 
 ALTER TABLE `Košarica` ADD CONSTRAINT `Košarica_fk0` FOREIGN KEY (`id_artikel`) REFERENCES `Produkt_košarica`(`id_pk`);
 
