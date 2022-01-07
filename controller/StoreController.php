@@ -6,7 +6,20 @@ require_once("ViewHelper.php");
 class StoreController {
     
     public static function index() {
-        echo ViewHelper::render("view/view-stranka.php", [
+        if ($_SESSION["loggedIn"] == false) {
+            echo ViewHelper::render("view/view-anon.php", [
+                "books" => StoreDB::getAllBooks()
+            ]);
+        }
+        else {
+            echo ViewHelper::render("view/view-stranka.php", [
+                 "books" => StoreDB::getAllBooks()
+            ]);
+        }
+    }
+
+
+        echo ViewHelper::render("view/view-anon.php", [
             "books" => StoreDB::getAllBooks()
         ]);
     }
@@ -34,10 +47,40 @@ class StoreController {
         if (self::checkValues($data)) {
             $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
             StoreDB::insertCustomer($data);
-            echo ViewHelper::redirect(BASE_URL . "store/view/");
+            echo ViewHelper::redirect(BASE_URL . "store/");
         } else {
             self::registerForm($data);
         }
+    }
+
+    public static function login() {
+        
+        $email=$_POST['email'];
+		$password=password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+        $id = StoreDB::getCustomerID($email, $password);
+
+        if ($id != NULL) {
+            $_SESSION["id"] = $id;
+            $_SESSION["username"] = $username;
+            $_SESSION["loggedIn"] = true;
+            echo ViewHelper::redirect(BASE_URL . "store/");
+        }
+        else {
+            $_SESSION["loggedIn"] = false;
+            $message = "Prijava ni bila uspešna.";
+            echo ViewHelper::render("view/view-login.php", $message);
+        }
+
+    }
+
+    public static function logout() {
+        session_destroy();
+        unset($_SESSION);
+        session_start();
+        $_SESSION["loggedIn"] = false;
+
+        echo ViewHelper::redirect(BASE_URL . "store/");
     }
     
     public static function loginForm($values = [

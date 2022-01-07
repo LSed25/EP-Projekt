@@ -2,6 +2,7 @@
 
 // enables sessions for the entire app
 session_start();
+$_SESSION["loggedIn"] = false;
 
 require_once("controller/StoreController.php");
 require_once("controller/StoreRESTController.php");
@@ -16,6 +17,7 @@ $urls = [
     "/^store$/" => function ($method) {
         StoreController::index();
     },
+
     "/^store\/register$/" => function ($method) {
         if ($method == "POST") {
             StoreController::register();
@@ -23,6 +25,7 @@ $urls = [
             StoreController::registerForm();
         }
     },
+
     "/^store\/login$/" => function ($method) {
         if ($method == "POST") {
             StoreController::login();
@@ -30,6 +33,7 @@ $urls = [
             StoreController::loginForm();
         }
     },
+    
     "/^store\/syslogin$/" => function ($method) {
         if ($method == "POST") {
             StoreController::sysLogin();
@@ -37,20 +41,11 @@ $urls = [
             StoreController::sysLoginForm();
         }
     },
-    
-    "/^store\/view$/" => function () {
-        StoreController::index();
-    },
-            
+
     "/^store\/(\d+)$/" => function ($method, $id) {
         StoreController::pridobiEno($id);
     },
-    /*"jokes/delete" => function () {
-        JokesController::delete();
-    },
-    "" => function () {
-        ViewHelper::redirect(BASE_URL . "jokes");
-    },*/
+    
     "/^$/" => function () {
         ViewHelper::redirect(BASE_URL . "store");
     },
