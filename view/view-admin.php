@@ -4,14 +4,37 @@
 <meta charset="UTF-8" />
 <title>Administrator</title>
 
-<h1>Administrator</h1>
+<div class="admin">  
+    <h1>Administrator</h1>
 
-<div class="admin-prijava">
-    <form action="" method="post">
+    <p><button type="button" action="<?= BASE_URL . "store/logout" ?>">Odjava</button></p>
+</div>
+
+<div class="admin-nastavitve">
+
+    <h2>Nastavitve administratorja</h2>
+    
+    <div class="message"><?php if(isset($message)) { echo $message; } ?></div> <--<!-- Ali je bila sprememba gesla/profila uspešna -->
+    
+    <h3>Spremeni geslo</h3>
+    <form action="<?= BASE_URL . "store/changepassword" ?>" method="post">
+         <label for="oldpass"><b>Trenutno geslo</b></label>
+         <input type="password" placeholder="Vnesi trenutno geslo" name="oldpassword" required>
+         <label for="newpass"><b>Novo geslo</b></label>
+         <input type="password" placeholder="Vnesi novo geslo" name="newpassword" required>
+         <button type="submit">Posodobi geslo</button>
+    </form>
+
+    <h3>Posodobi podatke</h3>
+    <form action="<?= BASE_URL . "store/admin" ?>" method="post">
+         <label for="name"><b>Ime</b></label>
+         <input type="text" placeholder="Vnesi ime" name="name" value="<?=$podatki["Ime"]?>">
+         <label for="surname"><b>Priimek</b></label>
+         <input type="text" placeholder="Vnesi priimek" name="surname" value="<?=$podatki["Priimek"]?>">
          <label for="email"><b>E-naslov</b></label>
-         <input type="email" placeholder="Vnesi e-naslov" name="email" required>
-         <label for="password"><b>Geslo</b></label>
-         <input type="password" placeholder="Vnesi geslo" name="password" required>
-         <button type="submit">Prijava</button>
+         <input type="email" placeholder="Vnesi e-naslov" name="email" value="<?=$podatki["Enaslov"]?>">
+         <button type="submit">Posodobi podatke</button>
     </form>
 </div>
+
+<p><button type="button" action="<?= BASE_URL . "store/admin/prodajalec" ?>">Upravljanje s prodajalci</button></p>

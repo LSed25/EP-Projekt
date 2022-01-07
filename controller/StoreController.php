@@ -2,6 +2,7 @@
 
 require_once("model/StoreDB.php");
 require_once("ViewHelper.php");
+require_once("controller/AdminController.php");
 
 class StoreController {
     
@@ -54,24 +55,94 @@ class StoreController {
     }
 
     public static function login() {
-        
+
         $email=$_POST['email'];
 		$password=password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-        $id = StoreDB::getCustomerID($email, $password);
+        $role=$_POST["role"];
 
-        if ($id != NULL) {
-            $_SESSION["id"] = $id;
-            $_SESSION["username"] = $username;
-            $_SESSION["loggedIn"] = true;
+        if ($role == "stranka") {
+            $id = StoreDB::getCustomerID($email, $password);
+
+            if ($id != NULL) {
+                $_SESSION["id"] = $id;
+                $_SESSION["role"] = $role;
+                $_SESSION["loggedIn"] = true;
+                echo ViewHelper::redirect(BASE_URL . "store/");
+            }
+            else {
+                $_SESSION["loggedIn"] = false;
+                $message = "Prijava ni bila uspešna.";
+                echo ViewHelper::render("view/view-login.php", $message);
+            }
+        }
+        else if ($role == "administrator") {
+            $id_admin = StoreDB::getAdminID($email, $password);
+
+            if ($id != NULL) {
+                $_SESSION["id"] = $id;
+                $_SESSION["role"] = $role;
+                $_SESSION["loggedIn"] = true;
+                
+                echo ViewHelper::redirect(BASE_URL . "store/admin/");
+            }
+            else {
+                $_SESSION["loggedIn"] = false;
+                $message = "Prijava ni bila uspešna.";
+                echo ViewHelper::render("view/view-syslogin.php", $message);
+            }
+        }
+        else if ($role == "prodajalec") {
+            $id_prodajalec = StoreDB::getSellerID($email, $password);
+
+            if ($id != NULL) {
+                $_SESSION["id"] = $id;
+                $_SESSION["role"] = $role;
+                $_SESSION["loggedIn"] = true;
+                
+                echo ViewHelper::redirect(BASE_URL . "store/prodajalec/");
+            }
+            else {
+                $_SESSION["loggedIn"] = false;
+                $message = "Prijava ni bila uspešna.";
+                echo ViewHelper::render("view/view-syslogin.php", $message);
+            }
+        }
+    }
+
+    public static function changePassword() {
+        $role = $_SESSION["role"];
+
+        $oldpassword=password_hash($_POST['oldpassword'], PASSWORD_DEFAULT);
+        $newpassword=password_hash($_POST['newpassword'], PASSWORD_DEFAULT);
+
+        if (!$role) {
             echo ViewHelper::redirect(BASE_URL . "store/");
         }
-        else {
-            $_SESSION["loggedIn"] = false;
-            $message = "Prijava ni bila uspešna.";
-            echo ViewHelper::render("view/view-login.php", $message);
+        else if ($role == "stranka") {
+            $id = $_SESSION["id"];
+            $confirm = StoreDB::getPassword($id);
+            if ($confirm == $oldpassword) {
+                 StoreDB::changePassword($id, $newpassword);
+            }
+            echo ViewHelper::render("view/view-stranka-profil.php");
         }
-
+        else if ($role == "administrator") {
+            $id = $_SESSION["id"];
+            $confirm = AdminDB::getAdminPassword($id);
+            if ($confirm == $oldpassword) {
+                AdminDB::changeAdminPassword($id, $newpassword);
+            }
+            echo ViewHelper::redirect(BASE_URL . "store/admin/");
+        }
+        else if ($role == "prodajalec") {
+            $id = $_SESSION["id"];
+            $confirm = AdminDB::getSellerPassword($id);
+            if ($confirm == $oldpassword) {
+               AdminDB::changeSellerPassword($id, $newpassword); 
+            }
+            echo ViewHelper::redirect(BASE_URL . "store/prodajalec/");
+        }
     }
 
     public static function logout() {

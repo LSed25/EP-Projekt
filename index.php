@@ -2,6 +2,7 @@
 
 // enables sessions for the entire app
 session_start();
+$_SESSION["role"] = "anon";
 $_SESSION["loggedIn"] = false;
 
 require_once("controller/StoreController.php");
@@ -33,6 +34,10 @@ $urls = [
             StoreController::loginForm();
         }
     },
+
+    "/^store\/logout$/" => function ($method) {
+        StoreController::logout();
+    },
     
     "/^store\/syslogin$/" => function ($method) {
         if ($method == "POST") {
@@ -42,8 +47,20 @@ $urls = [
         }
     },
 
+    "/^store\/changepassword$/" => function ($method) {
+        StoreController::changePassword();
+    },
+
     "/^store\/(\d+)$/" => function ($method, $id) {
         StoreController::pridobiEno($id);
+    },
+
+    "/^store\/admin$/" => function ($method) {
+        if ($method == "POST") {
+            AdminController::admin();
+        } else {
+            AdminController::adminForm();
+        }
     },
     
     "/^$/" => function () {

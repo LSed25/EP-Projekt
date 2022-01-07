@@ -10,32 +10,6 @@
     <p><button type="button" action="">Odjava</button></p>
 </div>
 
-<div class="admin-nastavitve">
-
-    <h2>Nastavitve administratorja</h2>
-
-    <h3>Spremeni geslo</h3>
-    <form action="" method="post">
-         <label for="oldpass"><b>Trenutno geslo</b></label>
-         <input type="password" placeholder="Vnesi trenutno geslo" name="oldpass" required>
-         <label for="newpass"><b>Novo geslo</b></label>
-         <input type="password" placeholder="Vnesi novo geslo" name="newpass" required>
-         <button type="submit">Posodobi geslo</button>
-    </form>
-
-    <h3>Posodobi podatke</h3>
-    <form action="" method="post">
-         <label for="name"><b>Ime</b></label>
-         <input type="text" placeholder="Vnesi ime" name="name">
-         <label for="surname"><b>Priimek</b></label>
-         <input type="text" placeholder="Vnesi priimek" name="surname">
-         <label for="email"><b>E-naslov</b></label>
-         <input type="email" placeholder="Vnesi e-naslov" name="email">
-         <button type="submit">Posodobi podatke</button>
-    </form>
-
-</div>
-
 <div class="admin-prodajalec">
 
     <h2>Urejaj prodajalce</h2>
