@@ -20,10 +20,10 @@ SET time_zone = "+00:00";
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bookstore`.`Administrator` (
   `id_admin` INT NOT NULL AUTO_INCREMENT,
-  `Ime` VARCHAR(45) NOT NULL,
-  `Priimek` VARCHAR(45) NOT NULL,
-  `Enaslov` VARCHAR(45) NOT NULL,
-  `Geslo` VARCHAR(45) NOT NULL,
+  `Ime` VARCHAR(255) NOT NULL,
+  `Priimek` VARCHAR(255) NOT NULL,
+  `Enaslov` VARCHAR(255) NOT NULL,
+  `Geslo` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id_admin`),
   UNIQUE INDEX `Enaslov_UNIQUE` (`Enaslov` ASC) VISIBLE)
 ENGINE = InnoDB;
@@ -34,10 +34,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bookstore`.`Prodajalec` (
   `id_prodajalec` INT NOT NULL AUTO_INCREMENT,
-  `Ime` VARCHAR(45) NOT NULL,
-  `Priimek` VARCHAR(45) NOT NULL,
-  `Enaslov` VARCHAR(45) NOT NULL,
-  `Geslo` VARCHAR(45) NOT NULL,
+  `Ime` VARCHAR(255) NOT NULL,
+  `Priimek` VARCHAR(255) NOT NULL,
+  `Enaslov` VARCHAR(255) NOT NULL,
+  `Geslo` VARCHAR(255) NOT NULL,
   `Aktiviran` TINYINT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id_prodajalec`),
   UNIQUE INDEX `Enaslov_UNIQUE` (`Enaslov` ASC) VISIBLE)
@@ -49,13 +49,13 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bookstore`.`Stranka` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `Ime` VARCHAR(45) NOT NULL,
-  `Priimek` VARCHAR(45) NOT NULL,
-  `Enaslov` VARCHAR(45) NOT NULL,
-  `Geslo` VARCHAR(45) NOT NULL,
-  `Ulica` VARCHAR(45) NOT NULL,
+  `Ime` VARCHAR(255) NOT NULL,
+  `Priimek` VARCHAR(255) NOT NULL,
+  `Enaslov` VARCHAR(255) NOT NULL,
+  `Geslo` VARCHAR(255) NOT NULL,
+  `Ulica` VARCHAR(255) NOT NULL,
   `Hisna_st` INT NOT NULL,
-  `Posta` VARCHAR(45) NOT NULL,
+  `Posta` VARCHAR(255) NOT NULL,
   `Postna_st` INT NOT NULL,
   `Aktiviran` TINYINT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
@@ -69,7 +69,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `bookstore`.`Narocilo` (
   `id_narocilo` INT NOT NULL AUTO_INCREMENT,
   `Datum` DATETIME NOT NULL DEFAULT NOW(),
-  `Status` VARCHAR(45) NULL,
+  `Status` VARCHAR(255) NULL,
   `Zakljuceno` TINYINT NOT NULL DEFAULT 0,
   `id_stranka` INT NOT NULL,
   PRIMARY KEY (`id_narocilo`),
@@ -87,8 +87,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bookstore`.`Produkt` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `Avtor` VARCHAR(45) NOT NULL,
-  `Naslov` VARCHAR(45) NOT NULL,
+  `Avtor` VARCHAR(255) NOT NULL,
+  `Naslov` VARCHAR(255) NOT NULL,
   `Leto_izdaje` INT NOT NULL,
   `Cena` DECIMAL NOT NULL,
   `Aktiviran` TINYINT NOT NULL DEFAULT 1,
@@ -146,4 +146,4 @@ VALUES (1, 'Matt Haig', 'The Midnight Library', 2021, 9.5),
 (5, 'Kiley Reid', 'Such a Fun Age', 2020, 10.5);
 
 INSERT INTO `Administrator` (`Ime`, `Priimek`,`Enaslov`,`Geslo`)
-VALUES ('admin', 'admin', "admin@ep.si", "$2y$10$9EhQBX7BxBL3l3vvBUsVKOINTAh/ueX7yIWDKgnIABcGw865v6df2");
+VALUES ('admin', 'admin', "admin@ep.si", "$2y$10$ssuzhFFAOyEGYjHTvvI8K.WGlPqdVSDnlJiq2sLpVXgGpDdkcF82W");
