@@ -2,8 +2,14 @@
 
 // enables sessions for the entire app
 session_start();
-$_SESSION["role"] = "anon";
-$_SESSION["loggedIn"] = false;
+
+if(!isset($_SESSION["id"])) {
+    $_SESSION["loggedIn"] = false;
+    $_SESSION["role"] = "anon";
+}else{
+    $_SESSION["loggedIn"] = true;
+}
+
 
 require_once("controller/StoreController.php");
 require_once("controller/AdminController.php");
@@ -87,6 +93,7 @@ $urls = [
     //--------
     // API
     //--------
+            
     "/^api\/store$/" => function ($method) {
         switch ($method) {
             default: # GET

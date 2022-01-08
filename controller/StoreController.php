@@ -7,14 +7,14 @@ require_once("controller/AdminController.php");
 class StoreController {
     
     public static function index() {
-        if ($_SESSION["loggedIn"] == false) {
-            echo ViewHelper::render("view/view-anon.php", [
-                "books" => AdminDB::getAllBooks()
+        if ($_SESSION["loggedIn"] == true) {
+            echo ViewHelper::render("view/view-stranka.php", [
+                 "books" => AdminDB::getAllBooks()
             ]);
         }
         else {
-            echo ViewHelper::render("view/view-stranka.php", [
-                 "books" => AdminDB::getAllBooks()
+            echo ViewHelper::render("view/view-anon.php", [
+                "books" => AdminDB::getAllBooks()
             ]);
         }
     }
@@ -64,17 +64,18 @@ class StoreController {
 
         if ($role == "stranka") {
             $id = AdminDB::getCustomerID($email);
-
+            
             if ($id != NULL) {
                 $confirmpassword = AdminDB::getPassword($id)["Geslo"];
-
+                
                 $verified = password_verify($password, $confirmpassword);
                 if ($verified) {
                     $_SESSION["id"] = $id;
                     $_SESSION["role"] = $role;
                     $_SESSION["loggedIn"] = true;
-
-                    echo ViewHelper::redirect(BASE_URL . "store/");
+                    
+                    
+                    echo ViewHelper::redirect(BASE_URL . "store/user/" . $id["id"]);
                 }
                 else {
                     $_SESSION["loggedIn"] = false;
