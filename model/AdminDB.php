@@ -167,25 +167,6 @@ class AdminDB extends AbstractDB {
         }
     }
     
-    public static function getUser(array $id) {
-        $uporabnik = parent::query("SELECT id, Ime, Priimek, Enaslov, Geslo, Ulica, Hisna_st, Posta, Postna_st"
-                        . " FROM Stranka"
-                        . " WHERE id = :id", $id);
-
-        if (count($uporabnik) == 1) {
-            return $uporabnik[0];
-        } else {
-            throw new InvalidArgumentException("Uporabnik ne obstaja");
-        }
-    }
-    
-    public static function getAllwithURI(array $prefix) {
-        return parent::query("SELECT id, Avtor, Naslov, Leto_izdaje, Cena, "
-                        . "          CONCAT(:prefix, id) as uri "
-                        . "FROM Produkt "
-                        . "ORDER BY id ASC", $prefix);
-    }
-    
     public static function insertCustomer(array $params) {
         return parent::modify("INSERT INTO Stranka (Ime, Priimek, Enaslov, Geslo, Ulica, Hisna_st, Posta, Postna_st) "
                         . " VALUES (:firstname, :lastname, :email, :password, :ulica, :hisnast, :posta, :postnast)", $params);

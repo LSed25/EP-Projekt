@@ -23,10 +23,6 @@ class StoreController {
         echo ViewHelper::render("view/view-knjiga.php", AdminDB::get(["id" => $id]));
     }
     
-    public static function getCustomer($id) {
-        echo ViewHelper::render("view/view-stranka-profil.php", AdminDB::get(["id" => $id]));
-    }
-    
     public static function registerForm($values = [
         "firstname" => "",
         "lastname" => "",
@@ -74,6 +70,7 @@ class StoreController {
             else {
                 $_SESSION["loggedIn"] = false;
                 $message = "Prijava ni bila uspešna.";
+              
                 echo ViewHelper::render("view/view-login.php", $message);
             }
         }
@@ -81,7 +78,7 @@ class StoreController {
             $id_admin = AdminDB::getAdminID($email);
 
             if ($id_admin != NULL) {
-                $confirmpassword = AdminDB::getPassword($id_admin);
+                $confirmpassword = AdminDB::getAdminPassword($id_admin)["Geslo"];
                 
                 $verified = password_verify($password, $confirmpassword);
                 if ($verified) {
@@ -252,5 +249,4 @@ class StoreController {
         ];
     }
 }
-
 

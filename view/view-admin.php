@@ -14,7 +14,7 @@
 
     <h2>Nastavitve administratorja</h2>
     
-    <div class="message"><?php echo $variables["message"] ?></div> <--<!-- Ali je bila sprememba gesla/profila uspešna -->
+    <div class="message"><?php if (isset($variables["message"])) {echo $variables["message"];}?></div> <!-- Ali je bila sprememba gesla/profila uspešna -->
     
     <h3>Spremeni geslo</h3>
     <form action="<?= BASE_URL . "store/changepassword" ?>" method="post">
