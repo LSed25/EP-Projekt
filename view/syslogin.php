@@ -25,7 +25,7 @@
                    <p><button>Prijava</button></p>
                 </form>
 
-                <div><?php  echo $variables["message"]; echo $variables["enteredpass"]; echo $variables["savedpass"]; ?></div>
+                <div><?php  echo $variables["message"] ?></div>
             <?php 
             }
             else { ?>

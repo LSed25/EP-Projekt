@@ -6,11 +6,11 @@ require_once("controller/StoreController.php");
 require_once("controller/StoreRESTController.php");
 
 class AdminController {
-    public static function adminForm($message = "") {
+    public static function adminForm() {
         if ($_SESSION["loggedIn"] == true && $_SESSION["role"] == "administrator") {
             $podatki = AdminDB::getAdminData($_SESSION["id"]);
 
-            echo ViewHelper::render("view/view-admin.php", $podatki, $message);            
+            echo ViewHelper::render("view/view-admin.php", $podatki);            
         }
         else {
             echo ViewHelper::redirect(BASE_URL . "store/");
@@ -19,18 +19,21 @@ class AdminController {
     
     public static function admin() {
         $podatki = filter_input_array(INPUT_POST, self::getRules());
-
+        $id = $_SESSION["id"];
+        
         if (self::checkValues($podatki)) {
-            $id = $_SESSION["id"];
             $ime = $podatki["name"];
             $priimek = $podatki["surname"];
             $email = $podatki["email"];
             AdminDB::updateAdmin($id, $ime, $priimek, $email);
-            $message = "Podatki so bili uspešno posodobljeni.";
-            adminForm($message);
+            $variables = AdminDB::getAdminData($id);
+            $variables["message"] = "Podatki so bili uspešno posodobljeni.";
+            
+            echo ViewHelper::render("view/view-admin.php", $variables);
         } else {
-            $message = "Prišlo je do napake pri posodabljanju podatkov.";
-            adminForm($message);
+            $variables = AdminDB::getAdminData($id);
+            $variables["message"] = "Prišlo je do napake pri posodabljanju podatkov.";
+            echo ViewHelper::render("view/view-admin.php", $variables);
         }
     }
 
@@ -112,10 +115,11 @@ class AdminController {
 
     public static function getRules() {
         return [
-            'firstname' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'lastname' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'email' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'name' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'surname' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'email' => FILTER_SANITIZE_EMAIL
             ];   
         
     }
 }
+
