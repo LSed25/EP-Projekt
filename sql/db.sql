@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `bookstore`.`Stranka` (
   `Ime` VARCHAR(45) NOT NULL,
   `Priimek` VARCHAR(45) NOT NULL,
   `Enaslov` VARCHAR(45) NOT NULL,
-  `Geslo` VARCHAR(45) NOT NULL,
+  `Geslo` VARCHAR(150) NOT NULL,
   `Ulica` VARCHAR(45) NOT NULL,
   `Hisna_st` INT NOT NULL,
   `Posta` VARCHAR(45) NOT NULL,

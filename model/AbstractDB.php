@@ -172,6 +172,10 @@ abstract class AbstractDB {
 
     public static abstract function delete(array $id);
     
+    public static abstract function getAllwithURI(array $prefix);
+    
+    public static abstract function getCustomerID(array $email, array $password);
+    
     // ADMINDB FUNCKIJE
     
     public static abstract function getAdminID(array $email);
