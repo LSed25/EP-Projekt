@@ -11,7 +11,7 @@
     <p><button type="button" action="<?= BASE_URL . "store/admin" ?>">Nazaj</button></p>
 </div>
 
-<div class="message"><?php if(isset($message)) { echo $message; } ?></div> <--<!-- Ali je bila sprememba gesla/profila uspešna -->
+<div class="message"><?php echo $variables["message"] ?></div> <--<!-- Ali je bila sprememba gesla/profila uspešna -->
 
 <div class="admin-prodajalec">
 
@@ -34,20 +34,20 @@
     <h3>Spremeni podatke prodajalca</h3>
     <form action="<?= BASE_URL . "store/admin/prodajalec" ?>" method="post">
          <input type="hidden" name="do" value="update">
-         <input type="hidden" name="id" value="<?=$podatki["id_prodajalec"]?>">
+         <input type="hidden" name="id" value="<?=$variables["id_prodajalec"]?>">
          <label for="name"><b>Ime</b></label>
-         <input type="text" placeholder="Vnesi ime" name="name" value="<?=$podatki["Ime"]?>"> 
+         <input type="text" placeholder="Vnesi ime" name="name" value="<?=$variables["Ime"]?>"> 
          <label for="surname"><b>Priimek</b></label>
          <input type="text" placeholder="Vnesi priimek" name="surname" value="<?=$podatki["Priimek"]?>"> 
          <label for="newemail"><b>Nov e-naslov</b></label>
-         <input type="email" placeholder="Vnesi nov e-naslov" name="newemail" value="<?=$podatki["Enaslov"]?>">
+         <input type="email" placeholder="Vnesi nov e-naslov" name="newemail" value="<?=$variables["Enaslov"]?>">
          <button type="submit">Posodobi podatke prodajalca</button>
     </form>
 
     <h3>Status prodajalca</h3>
 
     <?php
-    if ($podatki["Aktiviran"] == true) { ?>
+    if ($variables["Aktiviran"] == true) { ?>
         <p>Prodajalec je trenutno aktiviran.</p>
     <?php
         $text = "Deaktiviraj prodajalca";
@@ -61,8 +61,8 @@
 
     <form action="<?= BASE_URL . "store/admin/prodajalec" ?>" method="post">
          <input type="hidden" name="do" value="status">
-         <input type="hidden" name="status" value="<?=$podatki["Aktiviran"]?>">
-         <input type="hidden" name="id" value="<?=$podatki["id_prodajalec"]?>">
+         <input type="hidden" name="status" value="<?=$variables["Aktiviran"]?>">
+         <input type="hidden" name="id" value="<?=$variables["id_prodajalec"]?>">
          <button type="submit"><?= $text ?></button>
     </form>
 

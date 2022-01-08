@@ -51,9 +51,12 @@ class StoreController {
     public static function login() {
 
         $email=$_POST['email'];
-		$password=password_hash($_POST['password'], PASSWORD_DEFAULT);
+	$password=$_POST['password'];
 
         $role=$_POST["role"];
+        
+        
+        $podatki["message"] = "";
 
         if ($role == "stranka") {
             $id = AdminDB::getCustomerID($email, $password);
@@ -71,21 +74,30 @@ class StoreController {
             }
         }
         else if ($role == "administrator") {
-            $id_admin = AdminDB::getAdminID($email, $password);
+            $id_admin = AdminDB::getAdminID($email);
 
-            if ($id != NULL) {
-                $_SESSION["id"] = $id_admin;
-                $_SESSION["role"] = $role;
-                $_SESSION["loggedIn"] = true;
-
-                $podatki = AdminDB::getAdminData($id_admin);
+            if ($id_admin != NULL) {
+                $confirmpassword = AdminDB::getPassword($id_admin);
                 
-                echo ViewHelper::render("view/view-admin.php", $podatki);
+                $verified = password_verify($password, $confirmpassword);
+                if ($verified) {
+                    $_SESSION["id"] = $id_admin;
+                    $_SESSION["role"] = $role;
+                    $_SESSION["loggedIn"] = true;
+                    
+                    $podatki = AdminDB::getAdminData($id_admin);
+                    echo ViewHelper::render("view/view-admin.php", $podatki);
+                }
+                else {
+                    $_SESSION["loggedIn"] = false;
+                    $podatki["message"] = "Geslo je napačno.";
+                    echo ViewHelper::render("view/syslogin.php", $podatki);
+                }
             }
             else {
                 $_SESSION["loggedIn"] = false;
-                $message = "Prijava ni bila uspešna.";
-                echo ViewHelper::render("view/view-syslogin.php", $message);
+                $podatki["message"] = "Prijava ni bila uspešna.";
+                echo ViewHelper::render("view/syslogin.php", $podatki);
             }
         }
         else if ($role == "prodajalec") {
@@ -104,13 +116,13 @@ class StoreController {
                 else {
                     $_SESSION["loggedIn"] = false;
                     $message = "Prijava ni bila mogoča - profil prodajalca je deaktiviran.";
-                    echo ViewHelper::render("view/view-syslogin.php", $message);
+                    echo ViewHelper::render("view/syslogin.php", $message);
                 }
             }
             else {
                 $_SESSION["loggedIn"] = false;
                 $message = "Prijava ni bila uspešna.";
-                echo ViewHelper::render("view/view-syslogin.php", $message);
+                echo ViewHelper::render("view/syslogin.php", $message);
             }
         }
     }
@@ -186,11 +198,10 @@ class StoreController {
         echo ViewHelper::render("view/view-login.php", $values);
     }
     
-    public static function sysLoginForm($values = [
-        "email" => "",
-        "password" => ""
+    public static function sysLoginForm($podatki = [
+        "message" => ""
     ]) {
-        echo ViewHelper::render("view/syslogin.php", $values);
+        echo ViewHelper::render("view/syslogin.php", $podatki);
     }
     
     

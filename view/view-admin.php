@@ -14,7 +14,7 @@
 
     <h2>Nastavitve administratorja</h2>
     
-    <div class="message"><?php if(isset($podatki["message"])) { echo $podatki["message"]; } ?></div> <--<!-- Ali je bila sprememba gesla/profila uspešna -->
+    <div class="message"><?php echo $variables["message"] ?></div> <--<!-- Ali je bila sprememba gesla/profila uspešna -->
     
     <h3>Spremeni geslo</h3>
     <form action="<?= BASE_URL . "store/changepassword" ?>" method="post">
@@ -28,11 +28,11 @@
     <h3>Posodobi podatke</h3>
     <form action="<?= BASE_URL . "store/admin" ?>" method="post">
          <label for="name"><b>Ime</b></label>
-         <input type="text" placeholder="Vnesi ime" name="name" value="<?=$podatki["Ime"]?>">
+         <input type="text" placeholder="Vnesi ime" name="name" value="<?=$variables["Ime"]?>">
          <label for="surname"><b>Priimek</b></label>
-         <input type="text" placeholder="Vnesi priimek" name="surname" value="<?=$podatki["Priimek"]?>">
+         <input type="text" placeholder="Vnesi priimek" name="surname" value="<?=$variables["Priimek"]?>">
          <label for="email"><b>E-naslov</b></label>
-         <input type="email" placeholder="Vnesi e-naslov" name="email" value="<?=$podatki["Enaslov"]?>">
+         <input type="email" placeholder="Vnesi e-naslov" name="email" value="<?=$variables["Enaslov"]?>">
          <button type="submit">Posodobi podatke</button>
     </form>
 </div>

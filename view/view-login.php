@@ -1,7 +1,3 @@
-<!DOCTYPE html>
-
-<link rel="stylesheet" type="text/css" href="<?= CSS_URL . "style.css" ?>">
-<meta charset="UTF-8" />
 <title>Prijava</title>
 
 <h1>Prijava</h1>
@@ -13,6 +9,6 @@
     <p><button>Prijava</button> Še nimaš računa? <a href="<?= BASE_URL . "store/register" ?>">Registriraj se</a>
 </form>
 
-<div><?php if(isset($message)) { echo $message; } ?></div>
+<div><?php echo $variables["message"] ?></div>
 
 <p><a href="<?= BASE_URL . "store/syslogin" ?>">Sistemska prijava</a></p>

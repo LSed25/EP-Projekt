@@ -25,7 +25,7 @@
                    <p><button>Prijava</button></p>
                 </form>
 
-                <div><?php if(isset($message)) { echo $message; } ?></div>
+                <div><?php  echo $variables["message"] ?></div>
             <?php 
             }
             else { ?>
