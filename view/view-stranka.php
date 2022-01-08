@@ -6,6 +6,8 @@
 
 <h1>Knjigarna [name]</h1>
 
+<a href="<?= BASE_URL . "store/user/" ?>">Moj profil</a>
+
 <ul>
 
     <?php foreach ($books as $book): ?>

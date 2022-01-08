@@ -55,6 +55,10 @@ $urls = [
     "/^store\/(\d+)$/" => function ($method, $id) {
         StoreController::pridobiEno($id);
     },
+    
+    "/^store\/user\/(\d+)$/" => function ($method, $id) {
+        StoreController::getCustomer($id);
+    },
 
     "/^store\/admin$/" => function ($method) {
         if ($method == "POST") {
@@ -71,10 +75,32 @@ $urls = [
             AdminController::adminProdajalecForm();
         }
     },
+            
+    "/^store\/(\d+)$/" => function ($method, $id) {
+        StoreController::pridobiEno($id);
+    },
 
     "/^$/" => function () {
         ViewHelper::redirect(BASE_URL . "store");
     },
+    
+    //--------
+    // API
+    //--------
+    "/^api\/store$/" => function ($method) {
+        switch ($method) {
+            default: # GET
+                StoreRESTController::index();
+                break;
+        }
+    }, 
+    "/^api\/store\/user/(\d+)$/" => function ($id, $method) {
+        switch ($method) {
+            default: # GET
+                StoreRESTController::getUser($id);
+                break;
+        }
+    }
 ];
 
 foreach ($urls as $pattern => $controller) {
