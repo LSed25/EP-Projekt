@@ -98,13 +98,20 @@ class StoreController {
             $id_prodajalec = StoreDB::getSellerID($email, $password);
 
             if ($id != NULL) {
-                $_SESSION["id"] = $id_prodajalec;
-                $_SESSION["role"] = $role;
-                $_SESSION["loggedIn"] = true;
+                $podatki = AdminDB::getSellerData($id_prodajalec);
 
-                $podatki = AdminDB::getAdminData($id_prodajalec);
-                
-                echo ViewHelper::render("view/view-prodajalec.php", $podatki);
+                if ($podatki["Aktiviran"] == true) {
+                    $_SESSION["id"] = $id_prodajalec;
+                    $_SESSION["role"] = $role;
+                    $_SESSION["loggedIn"] = true;
+
+                    echo ViewHelper::render("view/view-prodajalec.php", $podatki);
+                }
+                else {
+                    $_SESSION["loggedIn"] = false;
+                    $message = "Prijava ni bila mogoča - profil prodajalca je deaktiviran.";
+                    echo ViewHelper::render("view/view-syslogin.php", $message);
+                }
             }
             else {
                 $_SESSION["loggedIn"] = false;
