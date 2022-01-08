@@ -119,17 +119,17 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `bookstore`.`Košarica` (
   `id_košarica` INT NOT NULL AUTO_INCREMENT,
   `id_artikel` INT NOT NULL,
-  `id_stranka` INT NULL,
+  `id_strankakošarica` INT NULL,
   PRIMARY KEY (`id_košarica`),
   INDEX `id_artikel_idx` (`id_artikel` ASC) VISIBLE,
-  INDEX `id_stranka_idx` (`id_stranka` ASC) VISIBLE,
+  INDEX `id_stranka_idx` (`id_strankakošarica` ASC) VISIBLE,
   CONSTRAINT `id_artikel`
     FOREIGN KEY (`id_artikel`)
     REFERENCES `bookstore`.`Produkt_košarica` (`id_pk`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `id_stranka`
-    FOREIGN KEY (`id_stranka`)
+  CONSTRAINT `id_strankakošarica`
+    FOREIGN KEY (`id_strankakošarica`)
     REFERENCES `bookstore`.`Stranka` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -138,12 +138,9 @@ ENGINE = InnoDB;
 
 
 /** DODAJANJE ZAČETNIH PRODUKTOV V BAZO **/
-INSERT INTO `Produkt` (`id`, `Avtor`,`Naslov`,`Leto_izdaje`,`Cena`)
+INSERT INTO `Produkt` (`id_produkt`, `Avtor`,`Naslov`,`Leto_izdaje`,`Cena`)
 VALUES (1, 'Matt Haig', 'The Midnight Library', 2021, 9.5),
 (2, 'Taylor Jenkins Reid', 'The Seven Husbands of Evelyn Hugo', 2021, 10.5),
 (3, 'Sally Rooney', 'Normal People', 2020, 14),
 (4, 'Madeline Miller', 'Circe', 2019, 11.3 ),
 (5, 'Kiley Reid', 'Such a Fun Age', 2020, 10.5);
-
-
-
