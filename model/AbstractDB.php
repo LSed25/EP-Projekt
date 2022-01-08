@@ -176,6 +176,8 @@ abstract class AbstractDB {
     
     public static abstract function getCustomerID(array $email, array $password);
     
+    public static abstract function getUser(array $id);
+    
     // ADMINDB FUNCKIJE
     
     public static abstract function getAdminID(array $email);
