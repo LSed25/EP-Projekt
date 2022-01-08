@@ -33,13 +33,12 @@ class AdminDB extends AbstractDB {
         return $statement->fetch();
     }
 
-    public static function getSellerID($email, $password) {
+    public static function getSellerID($email) {
         $db = DBInit::getInstance();
 
         $statement = $db->prepare("SELECT id_prodajalec FROM Prodajalec
-            WHERE Enaslov=:email AND Geslo=:geslo");
+            WHERE Enaslov=:email");
         $statement->bindParam(":email", $email, PDO::PARAM_STR);
-        $statement->bindParam(":geslo", $password, PDO::PARAM_STR);
         $statement->execute();
 
         return $statement->fetch();
@@ -172,13 +171,12 @@ class AdminDB extends AbstractDB {
                         . " VALUES (:firstname, :lastname, :email, :password, :ulica, :hisnast, :posta, :postnast)", $params);
     }
 
-    public static function getCustomerID($email, $password) {
+    public static function getCustomerID($email) {
         $db = DBInit::getInstance();
 
         $statement = $db->prepare("SELECT id FROM Stranka
-            WHERE Enaslov=:email AND Geslo=:geslo");
+            WHERE Enaslov=:email");
         $statement->bindParam(":email", $email, PDO::PARAM_STR);
-        $statement->bindParam(":geslo", $password, PDO::PARAM_STR);
         $statement->execute();
 
         return $statement->fetch();

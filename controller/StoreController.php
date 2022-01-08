@@ -51,7 +51,7 @@ class StoreController {
     public static function login() {
 
         $email=$_POST['email'];
-	$password=$_POST['password'];
+        $password=$_POST['password'];
 
         $role=$_POST["role"];
         
@@ -59,19 +59,25 @@ class StoreController {
         $podatki["message"] = "";
 
         if ($role == "stranka") {
-            $id = AdminDB::getCustomerID($email, $password);
+            $id = AdminDB::getCustomerID($email);
 
             if ($id != NULL) {
-                $_SESSION["id"] = $id;
-                $_SESSION["role"] = $role;
-                $_SESSION["loggedIn"] = true;
-                echo ViewHelper::redirect(BASE_URL . "store/");
-            }
-            else {
-                $_SESSION["loggedIn"] = false;
-                $message = "Prijava ni bila uspešna.";
-              
-                echo ViewHelper::render("view/view-login.php", $message);
+                $confirmpassword = AdminDB::getPassword($id)["Geslo"];
+
+                $verified = password_verify($password, $confirmpassword);
+                if ($verified) {
+                    $_SESSION["id"] = $id;
+                    $_SESSION["role"] = $role;
+                    $_SESSION["loggedIn"] = true;
+
+                    echo ViewHelper::redirect(BASE_URL . "store/");
+                }
+                else {
+                    $_SESSION["loggedIn"] = false;
+                    $podatki["message"] = "Prijava ni bila uspešna.";
+
+                    echo ViewHelper::render("view/view-login.php", $podatki);
+                }
             }
         }
         else if ($role == "administrator") {
@@ -102,27 +108,37 @@ class StoreController {
             }
         }
         else if ($role == "prodajalec") {
-            $id_prodajalec = AdminDB::getSellerID($email, $password);
+            $id_prodajalec = AdminDB::getSellerID($email);
 
             if ($id != NULL) {
-                $podatki = AdminDB::getSellerData($id_prodajalec);
+                $confirmpassword = AdminDB::getSellerPassword($id_prodajalec)["Geslo"];
 
-                if ($podatki["Aktiviran"] == true) {
-                    $_SESSION["id"] = $id_prodajalec;
-                    $_SESSION["role"] = $role;
-                    $_SESSION["loggedIn"] = true;
+                $verified = password_verify($password, $confirmpassword);
+                if ($verified) {
+                    $podatki = AdminDB::getSellerData($id_prodajalec);
 
-                    echo ViewHelper::render("view/view-prodajalec.php", $podatki);
+                    if ($podatki["Aktiviran"] == true) {
+                        $_SESSION["id"] = $id_prodajalec;
+                        $_SESSION["role"] = $role;
+                        $_SESSION["loggedIn"] = true;
+                        
+                        echo ViewHelper::render("view/view-prodajalec.php", $podatki);
+                    }
+                    else {
+                        $_SESSION["loggedIn"] = false;
+                        $podatki["message"] = "Prijava ni bila mogoča - profil prodajalca je deaktiviran.";
+                        echo ViewHelper::render("view/syslogin.php", $message);
+                    }
                 }
                 else {
                     $_SESSION["loggedIn"] = false;
-                    $message = "Prijava ni bila mogoča - profil prodajalca je deaktiviran.";
+                    $podatki["message"] = "Geslo je napačno.";
                     echo ViewHelper::render("view/syslogin.php", $message);
                 }
             }
             else {
                 $_SESSION["loggedIn"] = false;
-                $message = "Prijava ni bila uspešna.";
+                $podatki["message"] = "Prijava ni bila uspešna.";
                 echo ViewHelper::render("view/syslogin.php", $message);
             }
         }
