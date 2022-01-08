@@ -9,6 +9,6 @@
     <p><button>Prijava</button> Še nimaš računa? <a href="<?= BASE_URL . "store/register" ?>">Registriraj se</a>
 </form>
 
-<div><?php echo $variables["message"] ?></div>
+<div><?php if (isset($variables["message"])) {echo $variables["message"];}?></div>
 
 <p><a href="<?= BASE_URL . "store/syslogin" ?>">Sistemska prijava</a></p>
