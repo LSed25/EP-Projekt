@@ -7,7 +7,7 @@
 <div class="admin">  
     <h1>Administrator</h1>
 
-    <p><button type="button" action="<?= BASE_URL . "store/logout" ?>">Odjava</button></p>
+    <p><button type="button"><a href="<?= BASE_URL . "store/logout" ?>">Odjava</a></button></p>
 </div>
 
 <div class="admin-nastavitve">
