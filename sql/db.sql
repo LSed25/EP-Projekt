@@ -144,3 +144,6 @@ VALUES (1, 'Matt Haig', 'The Midnight Library', 2021, 9.5),
 (3, 'Sally Rooney', 'Normal People', 2020, 14),
 (4, 'Madeline Miller', 'Circe', 2019, 11.3 ),
 (5, 'Kiley Reid', 'Such a Fun Age', 2020, 10.5);
+
+INSERT INTO `Administrator` (`Ime`, `Priimek`,`Enaslov`,`Geslo`)
+VALUES ('admin', 'admin', "admin@ep.si", "$2y$10$9EhQBX7BxBL3l3vvBUsVKOINTAh/ueX7yIWDKgnIABcGw865v6df2");
