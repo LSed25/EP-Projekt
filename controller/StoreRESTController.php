@@ -15,7 +15,7 @@ class StoreRESTController {
     
     public static function getUser($id) {
         try {
-            echo ViewHelper::renderJSON(AdminDB::getCustomer(["id" => $id]));
+            echo ViewHelper::renderJSON(AdminDB::getUser(["id" => $id]));
         } catch (InvalidArgumentException $e) {
             echo ViewHelper::renderJSON($e->getMessage(), 404);
         }
