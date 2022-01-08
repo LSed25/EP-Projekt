@@ -3,6 +3,7 @@
 require_once("model/StoreDB.php");
 require_once("ViewHelper.php");
 require_once("controller/StoreController.php");
+require_once("controller/AdminController.php");
 
 
 class StoreRESTController {

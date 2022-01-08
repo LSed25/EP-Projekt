@@ -6,6 +6,7 @@ $_SESSION["role"] = "anon";
 $_SESSION["loggedIn"] = false;
 
 require_once("controller/StoreController.php");
+require_once("controller/AdminController.php");
 require_once("controller/StoreRESTController.php");
 
 define("BASE_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php"));
@@ -74,32 +75,6 @@ $urls = [
     "/^$/" => function () {
         ViewHelper::redirect(BASE_URL . "store");
     },
-    # REST API
-    
-    /*"/^api\/books\/(\d+)$/" => function ($method, $id) {
-        // TODO: izbris knjige z uporabo HTTP metode DELETE
-        switch ($method) {
-            case "PUT":
-                BooksRESTController::edit($id);
-                break;
-            case "DELETE":
-                BooksRESTController::delete($id);
-                break;
-            default: # GET
-                BooksRESTController::get($id);
-                break;
-        }
-    },
-    "/^api\/books$/" => function ($method) {
-        switch ($method) {
-            case "POST":
-                BooksRESTController::add();
-                break;
-            default: # GET
-                BooksRESTController::index();
-                break;
-        }
-    },*/
 ];
 
 foreach ($urls as $pattern => $controller) {

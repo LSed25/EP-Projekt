@@ -1,8 +1,9 @@
 <?php
 
-require_once("model/StoreDB.php");
+require_once("model/AdminDB.php");
 require_once("ViewHelper.php");
 require_once("controller/StoreController.php");
+require_once("controller/StoreRESTController.php");
 
 class AdminController {
     public static function adminForm($message = "") {
