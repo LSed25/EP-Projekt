@@ -49,7 +49,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bookstore`.`Stranka` (
   `id` INT NOT NULL AUTO_INCREMENT,
-<<<<<<< HEAD
   `Ime` VARCHAR(255) NOT NULL,
   `Priimek` VARCHAR(255) NOT NULL,
   `Enaslov` VARCHAR(255) NOT NULL,
