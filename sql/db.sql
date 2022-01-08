@@ -66,13 +66,13 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `bookstore`.`Naročilo`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bookstore`.`Naročilo` (
-  `id_naročilo` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `bookstore`.`Narocilo` (
+  `id_narocilo` INT NOT NULL AUTO_INCREMENT,
   `Datum` DATETIME NOT NULL DEFAULT NOW(),
   `Status` VARCHAR(45) NULL,
-  `Zaključeno` TINYINT NOT NULL DEFAULT 0,
+  `Zakljuceno` TINYINT NOT NULL DEFAULT 0,
   `id_stranka` INT NOT NULL,
-  PRIMARY KEY (`id_naročilo`),
+  PRIMARY KEY (`id_narocilo`),
   INDEX `id_stranka_idx` (`id_stranka` ASC) VISIBLE,
   CONSTRAINT `id_stranka`
     FOREIGN KEY (`id_stranka`)
@@ -86,28 +86,28 @@ ENGINE = InnoDB;
 -- Table `bookstore`.`Produkt`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bookstore`.`Produkt` (
-  `id_produkt` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `Avtor` VARCHAR(45) NOT NULL,
   `Naslov` VARCHAR(45) NOT NULL,
   `Leto_izdaje` INT NOT NULL,
   `Cena` DECIMAL NOT NULL,
   `Aktiviran` TINYINT NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id_produkt`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `bookstore`.`Produkt_košarica`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bookstore`.`Produkt_košarica` (
+CREATE TABLE IF NOT EXISTS `bookstore`.`Produkt_kosarica` (
   `id_pk` INT NOT NULL AUTO_INCREMENT,
   `id_produkt` INT NOT NULL,
-  `Količina` INT NOT NULL DEFAULT 1,
+  `Kolicina` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id_pk`),
   INDEX `id_produkt_idx` (`id_produkt` ASC) VISIBLE,
   CONSTRAINT `id_produkt`
     FOREIGN KEY (`id_produkt`)
-    REFERENCES `bookstore`.`Produkt` (`id_produkt`)
+    REFERENCES `bookstore`.`Produkt` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -116,20 +116,20 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `bookstore`.`Košarica`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bookstore`.`Košarica` (
-  `id_košarica` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `bookstore`.`Kosarica` (
+  `id_kosarica` INT NOT NULL AUTO_INCREMENT,
   `id_artikel` INT NOT NULL,
-  `id_strankakošarica` INT NULL,
-  PRIMARY KEY (`id_košarica`),
+  `id_strankakosarica` INT NULL,
+  PRIMARY KEY (`id_kosarica`),
   INDEX `id_artikel_idx` (`id_artikel` ASC) VISIBLE,
-  INDEX `id_stranka_idx` (`id_strankakošarica` ASC) VISIBLE,
+  INDEX `id_stranka_idx` (`id_strankakosarica` ASC) VISIBLE,
   CONSTRAINT `id_artikel`
     FOREIGN KEY (`id_artikel`)
-    REFERENCES `bookstore`.`Produkt_košarica` (`id_pk`)
+    REFERENCES `bookstore`.`Produkt_kosarica` (`id_pk`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `id_strankakošarica`
-    FOREIGN KEY (`id_strankakošarica`)
+  CONSTRAINT `id_strankakosarica`
+    FOREIGN KEY (`id_strankakosarica`)
     REFERENCES `bookstore`.`Stranka` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -138,7 +138,7 @@ ENGINE = InnoDB;
 
 
 /** DODAJANJE ZAČETNIH PRODUKTOV V BAZO **/
-INSERT INTO `Produkt` (`id_produkt`, `Avtor`,`Naslov`,`Leto_izdaje`,`Cena`)
+INSERT INTO `Produkt` (`id`, `Avtor`,`Naslov`,`Leto_izdaje`,`Cena`)
 VALUES (1, 'Matt Haig', 'The Midnight Library', 2021, 9.5),
 (2, 'Taylor Jenkins Reid', 'The Seven Husbands of Evelyn Hugo', 2021, 10.5),
 (3, 'Sally Rooney', 'Normal People', 2020, 14),
