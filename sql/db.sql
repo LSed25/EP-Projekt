@@ -147,3 +147,8 @@ VALUES (1, 'Matt Haig', 'The Midnight Library', 2021, 9.5),
 
 INSERT INTO `Administrator` (`Ime`, `Priimek`,`Enaslov`,`Geslo`)
 VALUES ('admin', 'admin', "admin@ep.si", "$2y$10$ssuzhFFAOyEGYjHTvvI8K.WGlPqdVSDnlJiq2sLpVXgGpDdkcF82W");
+/** geslo = admin **/
+
+INSERT INTO `Prodajalec` (`Ime`, `Priimek`,`Enaslov`,`Geslo`)
+VALUES ('prvi', 'prodajalec', "prodaja@ep.si", "$2y$10$LUs.ueIi/l5FodEMBKNfce/wY783xzaJdrSgZEUOVYyDfG6X93s9O");
+/** geslo = prodaja **/
