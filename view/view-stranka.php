@@ -2,11 +2,11 @@
 
 <link rel="stylesheet" type="text/css" href="<?= CSS_URL . "style.css" ?>">
 <meta charset="UTF-8" />
-<title>Knjigarna [name]</title>
+<title>Knjigarna</title>
 
-<h1>Knjigarna [name]</h1>
+<h1>Knjigarna</h1>
 
-<a href="<?= BASE_URL . "store/user/" ?>">Moj profil</a>
+<a href="<?= BASE_URL . "store/user/" . $_SESSION["id"]["id"]?>">Moj profil</a>
 
 <ul>
 
