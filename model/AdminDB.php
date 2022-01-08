@@ -68,8 +68,6 @@ class StoreDB extends AbstractDB {
         $statement->bindParam(":id", $id, PDO::PARAM_INT);
         $statement->bindParam(":newpassword", $newpassword, PDO::PARAM_STR);
         $statement->execute();
-
-        return $statement->fetch();
     }
 
     public static function updateAdmin($id, $ime, $priimek, $email) {
@@ -82,8 +80,6 @@ class StoreDB extends AbstractDB {
         $statement->bindParam(":priimek", $priimek, PDO::PARAM_STR);
         $statement->bindParam(":email", $email, PDO::PARAM_STR);
         $statement->execute();
-
-        return $statement->fetch();
     }
 
     public static function getSellerPassword($id) {
@@ -107,8 +103,6 @@ class StoreDB extends AbstractDB {
         $statement->bindParam(":email", $email, PDO::PARAM_STR);
         $statement->bindParam(":geslo", $geslo, PDO::PARAM_STR);
         $statement->execute();
-
-        return $statement->fetch();
     }
 
     public static function updateSeller($id, $ime, $priimek, $email, $geslo) {
@@ -122,8 +116,6 @@ class StoreDB extends AbstractDB {
         $statement->bindParam(":email", $email, PDO::PARAM_STR);
         $statement->bindParam(":geslo", $geslo, PDO::PARAM_STR);
         $statement->execute();
-
-        return $statement->fetch();
     }
 
     public static function activateSeller($id, $updatestatus) {
@@ -134,8 +126,6 @@ class StoreDB extends AbstractDB {
         $statement->bindParam(":id", $id, PDO::PARAM_INT);
         $statement->bindParam(":newstatus", $updatestatus, PDO::PARAM_BOOL);
         $statement->execute();
-
-        return $statement->fetch();
     }
 
     public static function changeSellerPassword($id, $newpassword) {
@@ -146,7 +136,5 @@ class StoreDB extends AbstractDB {
         $statement->bindParam(":id", $id, PDO::PARAM_INT);
         $statement->bindParam(":newpassword", $newpassword, PDO::PARAM_STR);
         $statement->execute();
-
-        return $statement->fetch();
     }
 }

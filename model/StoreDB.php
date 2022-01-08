@@ -52,8 +52,6 @@ class StoreDB extends AbstractDB {
         $statement->bindParam(":id", $id, PDO::PARAM_INT);
         $statement->bindParam(":newpassword", $newpassword, PDO::PARAM_STR);
         $statement->execute();
-
-        return $statement->fetch();
     }
 
     public static function getAllBooks() {
