@@ -111,16 +111,15 @@ class AdminDB extends AbstractDB {
         $statement->execute();
     }
 
-    public static function updateSeller($id, $ime, $priimek, $email, $geslo) {
+    public static function updateSeller($id, $ime, $priimek, $email) {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("UPDATE Prodajalec SET Ime=:ime, Priimek=:priimek, Enaslov=:email, Geslo=:geslo
+        $statement = $db->prepare("UPDATE Prodajalec SET Ime=:ime, Priimek=:priimek, Enaslov=:email
             WHERE id_prodajalec=:id");
         $statement->bindParam(":id", $id, PDO::PARAM_INT);
         $statement->bindParam(":ime", $ime, PDO::PARAM_STR);
         $statement->bindParam(":priimek", $priimek, PDO::PARAM_STR);
         $statement->bindParam(":email", $email, PDO::PARAM_STR);
-        $statement->bindParam(":geslo", $geslo, PDO::PARAM_STR);
         $statement->execute();
     }
 
@@ -152,7 +151,12 @@ class AdminDB extends AbstractDB {
     // ----------------
     
     
-    
+    public static function getAllwithURI(array $prefix) {
+        return parent::query("SELECT id, Avtor, Naslov, Leto_izdaje, Cena, "
+                        . "          CONCAT(:prefix, id) as uri "
+                        . "FROM Produkt "
+                        . "ORDER BY id ASC", $prefix);
+    }
     
     public static function get(array $id) {
         $knjige = parent::query("SELECT id, Avtor, Naslov, Leto_izdaje, Cena"
@@ -163,6 +167,18 @@ class AdminDB extends AbstractDB {
             return $knjige[0];
         } else {
             throw new InvalidArgumentException("Knjiga ne obstaja");
+        }
+    }
+    
+    public static function getUser(array $id) {
+        $uporabnik = parent::query("SELECT id, Ime, Priimek, Enaslov, Geslo, Ulica, Hisna_st, Posta, Postna_st"
+                        . " FROM Stranka"
+                        . " WHERE id = :id", $id);
+
+        if (count($uporabnik) == 1) {
+            return $uporabnik[0];
+        } else {
+            throw new InvalidArgumentException("Uporabnik ne obstaja");
         }
     }
     

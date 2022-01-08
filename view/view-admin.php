@@ -40,11 +40,26 @@
 <div>
     <h2>Upravljanje s prodajalci</h2>
 
+    <h3>Ustvari novega prodajalca</h3>
+    <form action="<?= BASE_URL . "store/admin/prodajalec" ?>" method="post">
+         <input type="hidden" name="do" value="add">
+         <label for="name"><b>Ime</b></label>
+         <input type="text" placeholder="Vnesi ime" name="name" required>
+         <label for="surname"><b>Priimek</b></label>
+         <input type="text" placeholder="Vnesi priimek" name="surname" required>
+         <label for="email"><b>E-naslov</b></label>
+         <input type="email" placeholder="Vnesi e-naslov" name="email" required>
+         <label for="password"><b>Geslo</b></label>
+         <input type="password" placeholder="Vnesi geslo" name="password" required>
+         <button type="submit">Ustvari</button>
+    </form>
+
     <h3>Izberi prodajalca:</h3>
 
-    <form action="<?= BASE_URL . "store/admin/prodajalec" ?>" method="get">
+    <form action="<?= BASE_URL . "store/admin/prodajalec" ?>" method="post">
          <label for="id"><b>ID prodajalca:</b></label>
-         <input type="number" placeholder="Vnesi ime prodajalca" name="id" min="1">
+         <input type="number" placeholder="Vnesi ID prodajalca" name="id" min="1">
+         <input type="hidden" name="do" value="search">
          <button type="submit">Izberi prodajalca</button>
     </form>
 </div>

@@ -59,6 +59,12 @@ class AdminController {
         $do = $_POST["do"];
 
         switch($do){
+            case "search":
+                $id_prodajalec = $_POST["id"];
+
+                $podatki = AdminDB::getSellerData($id_prodajalec);
+                echo ViewHelper::render("view/view-admin-prodajalec.php", $podatki);
+                break;
             case "add":
                 $ime = $_POST["name"];
                 $priimek = $_POST["surname"];
@@ -75,27 +81,28 @@ class AdminController {
                 $ime = $_POST["name"];
                 $priimek = $_POST["surname"];
                 $email = $_POST["newemail"];
-                $geslo = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-                AdminDB::updateSeller($ime, $priimek, $email, $geslo);
-
-                $message = "Prodajalec je bil uspešno posodobljen.";
-                adminProdajalecForm($message, $id);
+                AdminDB::updateSeller($id,$ime, $priimek, $email);
+                
+                $podatki = AdminDB::getSellerData($id);
+                $podatki["message"] = "Prodajalec je bil uspešno posodobljen.";
+                echo ViewHelper::render("view/view-admin-prodajalec.php", $podatki);
                 break;
             case "status":
                 $id = $_POST["id"];
 
                 if ($_POST["status"] == true) {
                     $updatestatus = false;
-                    $message = "Prodajalec je bil uspešno deaktiviran.";
+                    $podatki["message"] = "Prodajalec je bil uspešno deaktiviran.";
                 }
                 else {
                     $updatestatus = true;
-                    $message = "Prodajalec je bil uspešno aktiviran.";
+                    $podatki["message"] = "Prodajalec je bil uspešno aktiviran.";
                 }
 
-                AdminDB::activateSeller($id);
-                adminProdajalecForm($message);
+                AdminDB::activateSeller($id, $updatestatus);
+                $podatki = AdminDB::getSellerData($id);
+                echo ViewHelper::render("view/view-admin-prodajalec.php", $podatki);
                 break;  
         }
     }
@@ -122,4 +129,6 @@ class AdminController {
         
     }
 }
+
+
 
