@@ -1,6 +1,6 @@
-drop database if exists bookstore;
-create database bookstore;
-use bookstore;
+DROP DATABASE IF EXISTS `bookstore`;
+CREATE SCHEMA IF NOT EXISTS `bookstore` DEFAULT CHARACTER SET utf8 COLLATE utf8_slovenian_ci ;
+USE `bookstore` ;
  
 -- phpMyAdmin SQL Dump
 -- version 4.4.1.1
@@ -15,86 +15,125 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
-CREATE TABLE `Administrator` (
-	`id_admin` INT NOT NULL AUTO_INCREMENT,
-	`Ime` VARCHAR(255) NOT NULL,
-	`Priimek` VARCHAR(255) NOT NULL,
-	`Enaslov` VARCHAR(255) NOT NULL UNIQUE,
-	`Geslo` VARCHAR(255) NOT NULL,
-	PRIMARY KEY (`id_admin`)
-);
+-- -----------------------------------------------------
+-- Table `bookstore`.`Administrator`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bookstore`.`Administrator` (
+  `id_admin` INT NOT NULL AUTO_INCREMENT,
+  `Ime` VARCHAR(45) NOT NULL,
+  `Priimek` VARCHAR(45) NOT NULL,
+  `Enaslov` VARCHAR(45) NOT NULL,
+  `Geslo` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id_admin`),
+  UNIQUE INDEX `Enaslov_UNIQUE` (`Enaslov` ASC) VISIBLE)
+ENGINE = InnoDB;
 
-CREATE TABLE `Prodajalec` (
-	`id_prodajalec` INT NOT NULL AUTO_INCREMENT,
-	`Ime` VARCHAR(255) NOT NULL,
-	`Priimek` VARCHAR(255) NOT NULL,
-	`Enaslov` VARCHAR(255) NOT NULL UNIQUE,
-	`Geslo` VARCHAR(255) NOT NULL,
-	`Aktiviran` BOOLEAN NOT NULL DEFAULT true, /** false - deaktiviran s strani administratorja, ne more se prijavit **/
-	PRIMARY KEY (`id_prodajalec`)
-);
 
-CREATE TABLE `Stranka` (
-	`id` INT NOT NULL AUTO_INCREMENT,
-	`Ime` VARCHAR(255) COLLATE utf8_slovenian_ci NOT NULL,
-	`Priimek` VARCHAR(255) COLLATE utf8_slovenian_ci NOT NULL,
-    `Enaslov` VARCHAR(255) NOT NULL UNIQUE,
-	`Geslo` VARCHAR(255) NOT NULL,
-	`Ulica` VARCHAR(255) COLLATE utf8_slovenian_ci NOT NULL,
-	`Hisna_st` INT NOT NULL,
-	`Posta` VARCHAR(255) COLLATE utf8_slovenian_ci NOT NULL,
-	`Postna_st` INT NOT NULL,
-	`Aktiviran` BOOLEAN NOT NULL DEFAULT true, /** false - deaktiviran s strani administratorja, ne more se prijavit **/
-	PRIMARY KEY (`id`)
-);
+-- -----------------------------------------------------
+-- Table `bookstore`.`Prodajalec`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bookstore`.`Prodajalec` (
+  `id_prodajalec` INT NOT NULL AUTO_INCREMENT,
+  `Ime` VARCHAR(45) NOT NULL,
+  `Priimek` VARCHAR(45) NOT NULL,
+  `Enaslov` VARCHAR(45) NOT NULL,
+  `Geslo` VARCHAR(45) NOT NULL,
+  `Aktiviran` TINYINT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id_prodajalec`),
+  UNIQUE INDEX `Enaslov_UNIQUE` (`Enaslov` ASC) VISIBLE)
+ENGINE = InnoDB;
 
-CREATE TABLE `Naročilo` (
-	`id_naročilo` INT NOT NULL AUTO_INCREMENT,
-	`Datum` DATETIME NOT NULL DEFAULT NOW(),
-	`id_stranka` INT NOT NULL,
-	`Status` varchar(255),
-/**
-         Status:
-               - "n" neobdelano
-               - "p" potrjeno
-               - "x" preklicano
-               - "s" stornirano
-**/
-	`Zaključeno` BOOLEAN NOT NULL DEFAULT false, /** se prestavi true ko stranka odda naročilo **/
-	PRIMARY KEY (`id_naročilo`)
-);
 
-CREATE TABLE `Produkt` ( /** izdelki v trgovini **/
-	`id` INT NOT NULL AUTO_INCREMENT,
-	`Avtor` VARCHAR(255) NOT NULL,
-	`Naslov` VARCHAR(255) NOT NULL,
-	`Leto_izdaje` INT NOT NULL,
-	`Cena` DECIMAL NOT NULL,
-	`Aktiviran` BOOLEAN NOT NULL DEFAULT true, /** false - deaktiviran s strani administratorja, ne more se prijavit **/
-	PRIMARY KEY (`id`)
-);
+-- -----------------------------------------------------
+-- Table `bookstore`.`Stranka`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bookstore`.`Stranka` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `Ime` VARCHAR(45) NOT NULL,
+  `Priimek` VARCHAR(45) NOT NULL,
+  `Enaslov` VARCHAR(45) NOT NULL,
+  `Geslo` VARCHAR(45) NOT NULL,
+  `Ulica` VARCHAR(45) NOT NULL,
+  `Hisna_st` INT NOT NULL,
+  `Posta` VARCHAR(45) NOT NULL,
+  `Postna_st` INT NOT NULL,
+  `Aktiviran` TINYINT NULL DEFAULT 1,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `Enaslov_UNIQUE` (`Enaslov` ASC) VISIBLE)
+ENGINE = InnoDB;
 
-CREATE TABLE `Produkt_košarica` (  /** izdelki v košarici **/
-	`id_pk` INT NOT NULL AUTO_INCREMENT,
-	`id` INT,
-	`Količina` INT NOT NULL DEFAULT '1',
-	PRIMARY KEY (`id_pk`)
-);
 
-CREATE TABLE `Košarica` (
-	`id_košarica` INT NOT NULL AUTO_INCREMENT,
-	`id_artikel` INT,
-	`id_stranka` INT NOT NULL,
-	PRIMARY KEY (`id_košarica`)
-);
+-- -----------------------------------------------------
+-- Table `bookstore`.`Naročilo`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bookstore`.`Naročilo` (
+  `id_naročilo` INT NOT NULL AUTO_INCREMENT,
+  `Datum` DATETIME NOT NULL DEFAULT NOW(),
+  `Status` VARCHAR(45) NULL,
+  `Zaključeno` TINYINT NOT NULL DEFAULT 0,
+  `id_stranka` INT NOT NULL,
+  PRIMARY KEY (`id_naročilo`),
+  INDEX `id_stranka_idx` (`id_stranka` ASC) VISIBLE,
+  CONSTRAINT `id_stranka`
+    FOREIGN KEY (`id_stranka`)
+    REFERENCES `bookstore`.`Stranka` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
-ALTER TABLE `Naročilo` ADD CONSTRAINT `Naročilo_fk0` FOREIGN KEY (`id_stranka`) REFERENCES `Stranka`(`id`);
 
-ALTER TABLE `Produkt_košarica` ADD CONSTRAINT `Produkt_košarica_fk0` FOREIGN KEY (`id_pk`) REFERENCES `Produkt`(`id`);
+-- -----------------------------------------------------
+-- Table `bookstore`.`Produkt`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bookstore`.`Produkt` (
+  `id_produkt` INT NOT NULL AUTO_INCREMENT,
+  `Avtor` VARCHAR(45) NOT NULL,
+  `Naslov` VARCHAR(45) NOT NULL,
+  `Leto_izdaje` INT NOT NULL,
+  `Cena` DECIMAL NOT NULL,
+  `Aktiviran` TINYINT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id_produkt`))
+ENGINE = InnoDB;
 
-ALTER TABLE `Košarica` ADD CONSTRAINT `Košarica_fk0` FOREIGN KEY (`id_artikel`) REFERENCES `Produkt_košarica`(`id_pk`);
 
-ALTER TABLE `Košarica` ADD CONSTRAINT `Košarica_fk1` FOREIGN KEY (`id_stranka`) REFERENCES `Stranka`(`id`);
+-- -----------------------------------------------------
+-- Table `bookstore`.`Produkt_košarica`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bookstore`.`Produkt_košarica` (
+  `id_pk` INT NOT NULL AUTO_INCREMENT,
+  `id_produkt` INT NOT NULL,
+  `Količina` INT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id_pk`),
+  INDEX `id_produkt_idx` (`id_produkt` ASC) VISIBLE,
+  CONSTRAINT `id_produkt`
+    FOREIGN KEY (`id_produkt`)
+    REFERENCES `bookstore`.`Produkt` (`id_produkt`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `bookstore`.`Košarica`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bookstore`.`Košarica` (
+  `id_košarica` INT NOT NULL AUTO_INCREMENT,
+  `id_artikel` INT NOT NULL,
+  `id_stranka` INT NULL,
+  PRIMARY KEY (`id_košarica`),
+  INDEX `id_artikel_idx` (`id_artikel` ASC) VISIBLE,
+  INDEX `id_stranka_idx` (`id_stranka` ASC) VISIBLE,
+  CONSTRAINT `id_artikel`
+    FOREIGN KEY (`id_artikel`)
+    REFERENCES `bookstore`.`Produkt_košarica` (`id_pk`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `id_stranka`
+    FOREIGN KEY (`id_stranka`)
+    REFERENCES `bookstore`.`Stranka` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 
