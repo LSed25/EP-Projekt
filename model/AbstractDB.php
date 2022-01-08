@@ -174,37 +174,7 @@ abstract class AbstractDB {
     
     public static abstract function getAllwithURI(array $prefix);
     
-    public static abstract function getCustomerID(array $email, array $password);
-    
     public static abstract function getUser(array $id);
-    
-    // ADMINDB FUNCKIJE
-    
-    public static abstract function getAdminID(array $email);
-    
-    public static abstract function getAdminData(array $id);
-    
-    public static abstract function getSellerID(array $email, array $password);
-    
-    public static abstract function getSellerData(array $id);
-    
-    public static abstract function getAdminPassword(array $id);
-    
-    public static abstract function changeAdminPassword(array $id, array $newpassword);
-    
-    public static abstract function updateAdmin(array $id, array $ime, array $priimek, array $email);
-    
-    public static abstract function getSellerPassword(array $id);
-    
-    public static abstract function insertSeller(array $ime, array $priimek, array $email, array $geslo);
-    
-    public static abstract function updateSeller(array $id, array $ime, array $priimek, array $email, array $geslo);
-    
-    public static abstract function activateSeller(array $id, array $updatestatus);
-    
-    public static abstract function changeSellerPassword(array $id, array $newpassword);
-    
-    
     
 }
 

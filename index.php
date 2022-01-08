@@ -93,8 +93,15 @@ $urls = [
                 StoreRESTController::index();
                 break;
         }
-    }, 
-    "/^api\/store\/user/(\d+)$/" => function ($id, $method) {
+    },
+    "/^api\/store\/(\d+)$/" => function ($method, $id) {
+        switch ($method) {
+            default: # GET
+                StoreRESTController::get($id);
+                break;
+        }
+    },
+    "/^api\/store\/user\/(\d+)$/" => function ($method, $id) {
         switch ($method) {
             default: # GET
                 StoreRESTController::getUser($id);
