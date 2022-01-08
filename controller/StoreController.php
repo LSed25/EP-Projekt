@@ -1,6 +1,6 @@
 <?php
 
-require_once("model/StoreDB.php");
+require_once("model/AdminDB.php");
 require_once("ViewHelper.php");
 require_once("controller/AdminController.php");
 
@@ -9,24 +9,18 @@ class StoreController {
     public static function index() {
         if ($_SESSION["loggedIn"] == false) {
             echo ViewHelper::render("view/view-anon.php", [
-                "books" => StoreDB::getAllBooks()
+                "books" => AdminDB::getAllBooks()
             ]);
         }
         else {
             echo ViewHelper::render("view/view-stranka.php", [
-                 "books" => StoreDB::getAllBooks()
+                 "books" => AdminDB::getAllBooks()
             ]);
         }
     }
-
-
-        echo ViewHelper::render("view/view-anon.php", [
-            "books" => StoreDB::getAllBooks()
-        ]);
-    }
     
     public static function pridobiEno($id) {
-        echo ViewHelper::render("view/view-knjiga.php", StoreDB::get(["id" => $id]));
+        echo ViewHelper::render("view/view-knjiga.php", AdminDB::get(["id" => $id]));
     }
     
     public static function registerForm($values = [
@@ -47,7 +41,7 @@ class StoreController {
 
         if (self::checkValues($data)) {
             $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-            StoreDB::insertCustomer($data);
+            AdminDB::insertCustomer($data);
             echo ViewHelper::redirect(BASE_URL . "store/");
         } else {
             self::registerForm($data);
@@ -62,7 +56,7 @@ class StoreController {
         $role=$_POST["role"];
 
         if ($role == "stranka") {
-            $id = StoreDB::getCustomerID($email, $password);
+            $id = AdminDB::getCustomerID($email, $password);
 
             if ($id != NULL) {
                 $_SESSION["id"] = $id;
@@ -95,7 +89,7 @@ class StoreController {
             }
         }
         else if ($role == "prodajalec") {
-            $id_prodajalec = StoreDB::getSellerID($email, $password);
+            $id_prodajalec = AdminDB::getSellerID($email, $password);
 
             if ($id != NULL) {
                 $podatki = AdminDB::getSellerData($id_prodajalec);
@@ -132,7 +126,7 @@ class StoreController {
         }
         else if ($role == "stranka") {
             $id = $_SESSION["id"];
-            $confirm = StoreDB::getPassword($id);
+            $confirm = AdminDB::getPassword($id);
             if ($confirm == $oldpassword) {
                  StoreDB::changePassword($id, $newpassword);
             }

@@ -115,7 +115,7 @@ class AdminController {
             'firstname' => FILTER_SANITIZE_SPECIAL_CHARS,
             'lastname' => FILTER_SANITIZE_SPECIAL_CHARS,
             'email' => FILTER_SANITIZE_SPECIAL_CHARS,
-            ]   
-        ];
+            ];   
+        
     }
 }
