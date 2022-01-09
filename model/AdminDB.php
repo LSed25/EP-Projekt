@@ -283,6 +283,11 @@ class AdminDB extends AbstractDB {
                         . " VALUES (:id_produkt, :kolicina, :cena)", $params);
     }
     
+    public static function buyEdit(array $params) {
+        return parent::modify("UPDATE Produkt_kosarica SET Kolicina = :amount, Cena = :cena "
+                        . " WHERE id_pk = :id", $params);
+    }
+    
     public static function pridobiPKID() {
         $id = parent::query("SELECT LAST_INSERT_ID()");
 

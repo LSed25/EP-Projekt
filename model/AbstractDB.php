@@ -165,18 +165,16 @@ abstract class AbstractDB {
     public static abstract function getAllBooks();
 
     public static abstract function insertCustomer(array $params);
-    
-    public static abstract function insertArticle(array $params);
 
     public static abstract function update(array $params);
-
-    public static abstract function delete(array $id);
     
     public static abstract function getAllwithURI(array $prefix);
     
     public static abstract function getUser(array $id);
     
     public static abstract function buy(array $params);
+    
+    public static abstract function buyEdit(array $params);
     
     public static abstract function pridobiPK(array $id);
     
