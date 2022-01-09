@@ -36,6 +36,6 @@
 </form>
 <p>
 <button><a href="<?= BASE_URL . "store/user/cart/delete/" . $_SESSION["id"]["id"]?>">Izprazni košarico</a></button></p>
-// GUMB ZA SUBMIT(efekt), GUMB ZA SPREMINJANJE KOLIČINE(efekt, izbriši cart on submit??), BRISANJE ARTIKLOV
+// GUMB ZA SPREMINJANJE KOLIČINE(efekt, izbriši cart on submit??), BRISANJE ARTIKLOV
 
 <?php } ?>

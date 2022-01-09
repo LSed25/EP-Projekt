@@ -52,6 +52,7 @@ class StoreController {
         if (self::checkValues($data)) {
 
             AdminDB::cartSubmit($data);
+            AdminDB::emptyCart(["id" => $id]);
             ViewHelper::redirect(BASE_URL . "store/user/" . $data["id_stranka"]);
         } else {
             self::cart($data["id_stranka"]);
