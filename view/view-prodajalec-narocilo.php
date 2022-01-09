@@ -23,10 +23,6 @@
         <li>
             <p><b>ID NAROČILA: </b><?php echo $narocilo["id_narocilo"]; ?></p>
             <p><b>Datum naročila: </b><?php echo $narocilo["Datum"]; ?></p>
-            <p><b>PODATKI O KUPCU: </b></p>
-            <p><b>Ime in priimek: </b><?php echo $narocilo["stranka"]["Ime"]," ",$narocilo["stranka"]["Priimek"]; ?></p>
-            <p><b>Naslov: </b><?php echo $narocilo["stranka"]["Ulica"]," ",$narocilo["stranka"]["Hisna_st"],", ",$narocilo["stranka"]["Postna_st"]," ",$narocilo["stranka"]["Posta"]; ?></p>
-            <p><b>Kontakt: </b><?php $narocilo["stranka"]["Enaslov"] ?></p>
             <form action="<?= BASE_URL . "store/narocilo" ?>" method="post">
                  <input type="hidden" name="do" value="confirm">
                  <input type="hidden" name="id" value="<?=$narocilo["id_narocilo"]?>">
@@ -41,3 +37,54 @@
         <?php } endforeach; ?>
 
 </ul>
+
+<h2>Zgodovina potrjenih naročil:</h2>
+
+<ul>
+
+    <?php foreach ($variables as $narocilo): 
+        if ($narocilo["Status"] == "potrjeno" && $narocilo["Zakljuceno"] == true) {
+            ?>
+        <li>
+            <p><b>ID NAROČILA: </b><?php echo $narocilo["id_narocilo"]; ?></p>
+            <p><b>Datum naročila: </b><?php echo $narocilo["Datum"]; ?></p>
+            <form action="<?= BASE_URL . "store/narocilo" ?>" method="post">
+                 <input type="hidden" name="do" value="revoke">
+                 <input type="hidden" name="id" value="<?=$narocilo["id_narocilo"]?>">
+                 <button type="submit">Storniraj naročilo</button>
+            </form>       
+        </li>
+        <?php } endforeach; ?>
+
+</ul>
+
+<h2>Zgodovina preklicanih naročil:</h2>
+
+<ul>
+
+    <?php foreach ($variables as $narocilo): 
+        if ($narocilo["Status"] == "preklicano" && $narocilo["Zakljuceno"] == true) {
+            ?>
+        <li>
+            <p><b>ID NAROČILA: </b><?php echo $narocilo["id_narocilo"]; ?></p>
+            <p><b>Datum naročila: </b><?php echo $narocilo["Datum"]; ?></p>
+        </li>
+        <?php } endforeach; ?>
+
+</ul>
+
+<h2>Zgodovina storniranih naročil:</h2>
+
+<ul>
+
+    <?php foreach ($variables as $narocilo): 
+        if ($narocilo["Status"] == "stornirano" && $narocilo["Zakljuceno"] == true) {
+            ?>
+        <li>
+            <p><b>ID NAROČILA: </b><?php echo $narocilo["id_narocilo"]; ?></p>
+            <p><b>Datum naročila: </b><?php echo $narocilo["Datum"]; ?></p>
+        </li>
+        <?php } endforeach; ?>
+
+</ul>
+
