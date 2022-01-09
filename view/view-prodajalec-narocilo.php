@@ -23,7 +23,7 @@
         <li>
             
         </li>
-    <?php endforeach; ?>
+        <?php } endforeach; ?>
 
 </ul>
 
@@ -35,7 +35,7 @@
         if ($narocilo["Status"] == "potrjeno" && $narocilo["Zakljuceno"] == true) {
             ?>
         <li></li>
-    <?php endforeach; ?>
+        <?php } endforeach; ?>
 
 </ul>
 
@@ -47,7 +47,7 @@
         if ($narocilo["Status"] == "preklicano" && $narocilo["Zakljuceno"] == true) {
             ?>
         <li></li>
-    <?php endforeach; ?>
+        <?php } endforeach; ?>
 
 </ul>
 
@@ -59,6 +59,6 @@
         if ($narocilo["Status"] == "stornirano" && $narocilo["Zakljuceno"] == true) {
             ?>
         <li></li>
-    <?php endforeach; ?>
+        <?php } endforeach; ?>
 
 </ul>

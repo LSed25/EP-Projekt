@@ -71,6 +71,7 @@ CREATE TABLE IF NOT EXISTS `bookstore`.`Narocilo` (
   `Datum` DATETIME NOT NULL DEFAULT NOW(),
   `Status` VARCHAR(255) NULL,
   `Zakljuceno` TINYINT NOT NULL DEFAULT 0,
+  `Cena` DECIMAL NOT NULL,
   `id_stranka` INT NOT NULL,
   PRIMARY KEY (`id_narocilo`),
   INDEX `id_stranka_idx` (`id_stranka` ASC) VISIBLE,
