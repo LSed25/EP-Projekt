@@ -32,12 +32,12 @@
 </ul>
 
 <br></br>
-<form action="<?= BASE_URL . "store/submit/" . $_SESSION["id"]["id"]?>" method="post">
-    <input type="hidden" name="id_stranka" value="<?= $_SESSION["id"]["id"] ?>" />
+<form action="<?= BASE_URL . "store/submit/" . $_SESSION["id"]?>" method="post">
+    <input type="hidden" name="id_stranka" value="<?= $_SESSION["id"] ?>" />
     <input type="hidden" name="cena" value="<?= $kCena ?>" />
     <button type="submit">Zakljuci nakup</button> 
 </form>
 <p>
-<button><a href="<?= BASE_URL . "store/user/cart/delete/" . $_SESSION["id"]["id"]?>">Izprazni košarico</a></button></p>
+<button><a href="<?= BASE_URL . "store/user/cart/delete/" . $_SESSION["id"]?>">Izprazni košarico</a></button></p>
 
 <?php } ?>
