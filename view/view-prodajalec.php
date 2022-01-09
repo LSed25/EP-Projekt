@@ -8,7 +8,7 @@
     <h1>Prodajalec</h1>
 
     <p><button type="button"><a href="<?= BASE_URL . "store/logout" ?>">Odjava</a></button></p>
-    <p><button type="button"><a href="<?= BASE_URL . "store/prodajalec/narocilo" ?>">Upravljaj z naročili</a></button></p>
+    <p><button type="button"><a href="<?= BASE_URL . "store/narocilo" ?>">Upravljaj z naročili</a></button></p>
 </div>
 
 <div class="prodajalec-nastavitve">
