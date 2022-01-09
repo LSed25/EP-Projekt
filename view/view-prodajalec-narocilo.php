@@ -22,8 +22,9 @@
             ?>
         <li>
             <p><b>PODATKI O NAROČILU: </b></p>
-            <p><b>ID naročila: </b><?php echo $narocilo["id_narocilo"]; ?></p>
-            <p><b>Datum naročila: </b><?php echo $narocilo["Datum"]; ?></p>
+            <p><b>ID: </b><?php echo $narocilo["id_narocilo"]; ?></p>
+            <p><b>Datum: </b><?php echo $narocilo["Datum"]; ?></p>
+            <p><b>Znesek: </b><?php echo $narocilo["Cena"]; ?> €</p>
             <p><b>PODATKI O KUPCU: </b></p>
             <p><b>Ime in priimek: </b><?php echo $narocilo["Stranka"]["Ime"]," ",$narocilo["Stranka"]["Priimek"]; ?></p>
             <p><b>Naslov: </b><?php echo $narocilo["Stranka"]["Ulica"]," ",$narocilo["Stranka"]["Hisna_st"],", ",$narocilo["Stranka"]["Postna_st"]," ",$narocilo["Stranka"]["Posta"]; ?></p>
@@ -52,8 +53,9 @@
             ?>
         <li>
             <p><b>PODATKI O NAROČILU: </b></p>
-            <p><b>ID naročila: </b><?php echo $narocilo["id_narocilo"]; ?></p>
-            <p><b>Datum naročila: </b><?php echo $narocilo["Datum"]; ?></p>
+            <p><b>ID: </b><?php echo $narocilo["id_narocilo"]; ?></p>
+            <p><b>Datum: </b><?php echo $narocilo["Datum"]; ?></p>
+            <p><b>Znesek: </b><?php echo $narocilo["Cena"]; ?> €</p>
             <p><b>PODATKI O KUPCU: </b></p>
             <p><b>Ime in priimek: </b><?php echo $narocilo["Stranka"]["Ime"]," ",$narocilo["Stranka"]["Priimek"]; ?></p>
             <p><b>Naslov: </b><?php echo $narocilo["Stranka"]["Ulica"]," ",$narocilo["Stranka"]["Hisna_st"],", ",$narocilo["Stranka"]["Postna_st"]," ",$narocilo["Stranka"]["Posta"]; ?></p>
@@ -77,8 +79,9 @@
             ?>
         <li>
             <p><b>PODATKI O NAROČILU: </b></p>
-            <p><b>ID naročila: </b><?php echo $narocilo["id_narocilo"]; ?></p>
-            <p><b>Datum naročila: </b><?php echo $narocilo["Datum"]; ?></p>
+            <p><b>ID: </b><?php echo $narocilo["id_narocilo"]; ?></p>
+            <p><b>Datum: </b><?php echo $narocilo["Datum"]; ?></p>
+            <p><b>Znesek: </b><?php echo $narocilo["Cena"]; ?> €</p>
             <p><b>PODATKI O KUPCU: </b></p>
             <p><b>Ime in priimek: </b><?php echo $narocilo["Stranka"]["Ime"]," ",$narocilo["Stranka"]["Priimek"]; ?></p>
             <p><b>Naslov: </b><?php echo $narocilo["Stranka"]["Ulica"]," ",$narocilo["Stranka"]["Hisna_st"],", ",$narocilo["Stranka"]["Postna_st"]," ",$narocilo["Stranka"]["Posta"]; ?></p>
@@ -97,8 +100,9 @@
             ?>
         <li>
             <p><b>PODATKI O NAROČILU: </b></p>
-            <p><b>ID naročila: </b><?php echo $narocilo["id_narocilo"]; ?></p>
-            <p><b>Datum naročila: </b><?php echo $narocilo["Datum"]; ?></p>
+            <p><b>ID: </b><?php echo $narocilo["id_narocilo"]; ?></p>
+            <p><b>Datum: </b><?php echo $narocilo["Datum"]; ?></p>
+            <p><b>Znesek: </b><?php echo $narocilo["Cena"]; ?> €</p>
             <p><b>PODATKI O KUPCU: </b></p>
             <p><b>Ime in priimek: </b><?php echo $narocilo["Stranka"]["Ime"]," ",$narocilo["Stranka"]["Priimek"]; ?></p>
             <p><b>Naslov: </b><?php echo $narocilo["Stranka"]["Ulica"]," ",$narocilo["Stranka"]["Hisna_st"],", ",$narocilo["Stranka"]["Postna_st"]," ",$narocilo["Stranka"]["Posta"]; ?></p>
