@@ -18,6 +18,11 @@ class AdminController {
     }
     
     public static function admin() {
+        if (!($_SESSION["loggedIn"] == true && $_SESSION["role"] == "administrator")) {
+            echo ViewHelper::redirect(BASE_URL . "store/");
+            return;
+        }
+
         $podatki = filter_input_array(INPUT_POST, self::getRules());
         $id = $_SESSION["id"];
         
@@ -34,6 +39,42 @@ class AdminController {
             $variables = AdminDB::getAdminData($id);
             $variables["message"] = "Prišlo je do napake pri posodabljanju podatkov.";
             echo ViewHelper::render("view/view-admin.php", $variables);
+        }
+    }
+
+    public static function prodajalecForm() {
+        if ($_SESSION["loggedIn"] == true && $_SESSION["role"] == "prodajalec") {
+            $podatki = AdminDB::getSellerData($_SESSION["id"]);
+
+            echo ViewHelper::render("view/view-prodajalec.php", $podatki);            
+        }
+        else {
+            echo ViewHelper::redirect(BASE_URL . "store/");
+        }
+    }
+
+    public static function prodajalec() {
+        if (!($_SESSION["loggedIn"] == true && $_SESSION["role"] == "prodajalec")) {
+            echo ViewHelper::redirect(BASE_URL . "store/");
+            return;
+        }
+        
+        $podatki = filter_input_array(INPUT_POST, self::getRules());
+        $id = $_SESSION["id"];
+        
+        if (self::checkValues($podatki)) {
+            $ime = $podatki["name"];
+            $priimek = $podatki["surname"];
+            $email = $podatki["email"];
+            AdminDB::updateSeller($id, $ime, $priimek, $email);
+            $variables = AdminDB::getSellerData($id);
+            $variables["message"] = "Podatki so bili uspešno posodobljeni.";
+            
+            echo ViewHelper::render("view/view-prodajalec.php", $variables);
+        } else {
+            $variables = AdminDB::getSellerData($id);
+            $variables["message"] = "Prišlo je do napake pri posodabljanju podatkov.";
+            echo ViewHelper::render("view/view-prodajalec.php", $variables);
         }
     }
 

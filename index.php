@@ -104,6 +104,14 @@ $urls = [
             AdminController::adminProdajalec();
         } 
     },
+
+    "/^store\/prodajalec$/" => function ($method) {
+        if ($method == "POST") {
+            AdminController::prodajalec();
+        } else {
+            AdminController::prodajalecForm();
+        }
+    },
             
     "/^store\/(\d+)$/" => function ($method, $id) {
         StoreController::pridobiEno($id);
