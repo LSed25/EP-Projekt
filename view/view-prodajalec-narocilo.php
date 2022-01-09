@@ -18,24 +18,24 @@
 <ul>
 
     <?php foreach ($variables as $narocilo): 
-        if ($narocilo["status"] == "neobdelano" && $narocilo["zakljuceno"] == true) {
+        if ($narocilo["Status"] == "neobdelano" && $narocilo["Zakljuceno"] == true) {
             ?>
         <li>
-            <p><b>ID NAROČILA:</b><?php echo $narocilo["id"]; ?></p>
-            <p><b>Datum naročila:</b><?php echo $narocilo["datum"]; ?></p>
-            <p><b>PODATKI O KUPCU:</b></p>
-            <p><b>Ime in priimek:</b><?php echo $narocilo["stranka"]["Ime"]," ",$narocilo["stranka"]["Priimek"]; ?></p>
-            <p><b>Naslov:</b><?php echo $narocilo["stranka"]["Ulica"]," ",$narocilo["stranka"]["Hisna_st"],", ",$narocilo["stranka"]["Postna_st"]," ",$narocilo["stranka"]["Posta"]; ?></p>
-            <p><b>Kontakt:</b><?php $narocilo["stranka"]["Enaslov"] ?></p>
+            <p><b>ID NAROČILA: </b><?php echo $narocilo["id_narocilo"]; ?></p>
+            <p><b>Datum naročila: </b><?php echo $narocilo["Datum"]; ?></p>
+            <p><b>PODATKI O KUPCU: </b></p>
+            <p><b>Ime in priimek: </b><?php echo $narocilo["stranka"]["Ime"]," ",$narocilo["stranka"]["Priimek"]; ?></p>
+            <p><b>Naslov: </b><?php echo $narocilo["stranka"]["Ulica"]," ",$narocilo["stranka"]["Hisna_st"],", ",$narocilo["stranka"]["Postna_st"]," ",$narocilo["stranka"]["Posta"]; ?></p>
+            <p><b>Kontakt: </b><?php $narocilo["stranka"]["Enaslov"] ?></p>
             <form action="<?= BASE_URL . "store/narocilo" ?>" method="post">
                  <input type="hidden" name="do" value="confirm">
-                 <input type="hidden" name="id" value="<?=$narocilo["id"]?>">
+                 <input type="hidden" name="id" value="<?=$narocilo["id_narocilo"]?>">
                  <button type="submit">Potrdi naročilo</button>
-            </form>
+            </form>   
             <form action="<?= BASE_URL . "store/narocilo" ?>" method="post">
                  <input type="hidden" name="do" value="cancel">
-                 <input type="hidden" name="id" value="<?=$narocilo["id"]?>">
-                 <button type="submit">Potrdi naročilo</button>
+                 <input type="hidden" name="id" value="<?=$narocilo["id_narocilo"]?>">
+                 <button type="submit">Prekliči naročilo</button>
             </form>           
         </li>
         <?php } endforeach; ?>

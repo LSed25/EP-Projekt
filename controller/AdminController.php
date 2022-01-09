@@ -293,8 +293,10 @@ class AdminController {
                 $id = $narocilo["id_stranka"];
                 $narocilo["stranka"] = AdminDB::getCustomerData($id);
 
-                echo ViewHelper::render("view/view-prodajalec-narocilo.php", $vsa_narocila);
+                
             }
+            
+            echo ViewHelper::render("view/view-prodajalec-narocilo.php", $vsa_narocila);
         }
         else {
             echo ViewHelper::redirect(BASE_URL . "store/");
