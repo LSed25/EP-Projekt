@@ -58,23 +58,34 @@ class StoreController {
             self::pridobiEno($data['id_produkt']);
         }
     }
+    public static function cartDelete($id) {
+        AdminDB::emptyCart(["id" => $id]);
+        echo ViewHelper::redirect(BASE_URL . "store/");
+        
+    }
     
     public static function cart($id) {
+        $books = 0;
         $books = AdminDB::getCartUser(["id" => $id]);
         //var_dump($books);
-        for($i = 0; $i < count($books); $i++) {
-            $newid['id_pk'] = $books[$i]['id_artikel'];
-            $pks[$i] = AdminDB::pridobiPKA($newid);    
+        if(!$books) {
+            echo ViewHelper::render("view/view-cart.php", [
+                     "books" => $books]);
+        }else{
+            for($i = 0; $i < count($books); $i++) {
+                $newid['id_pk'] = $books[$i]['id_artikel'];
+                $pks[$i] = AdminDB::pridobiPKA($newid);    
+            }
+            for($i = 0; $i < count($pks); $i++) {
+                $newid['id'] = $pks[$i]['id_produkt'];
+                $products[$i] = AdminDB::get($newid);
+            }
+            echo ViewHelper::render("view/view-cart.php", [
+                     "books" => $books,
+                     "products" => $products,
+                     "pks" => $pks
+                    ]);
         }
-        for($i = 0; $i < count($pks); $i++) {
-            $newid['id'] = $pks[$i]['id_produkt'];
-            $products[$i] = AdminDB::get($newid);
-        }
-        echo ViewHelper::render("view/view-cart.php", [
-                 "books" => $books,
-                 "products" => $products,
-                 "pks" => $pks
-                ]);
     }
     
     public static function editForm($params) {

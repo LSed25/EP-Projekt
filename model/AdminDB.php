@@ -158,6 +158,10 @@ class AdminDB extends AbstractDB {
                         . "ORDER BY id ASC", $prefix);
     }
     
+    public static function emptyCart(array $id) {
+        return parent::modify("DELETE FROM Kosarica WHERE id_strankakosarica = :id", $id);
+    }
+    
     public static function get(array $id) {
         $knjige = parent::query("SELECT id, Avtor, Naslov, Leto_izdaje, Cena"
                         . " FROM Produkt"

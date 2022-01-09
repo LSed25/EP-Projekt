@@ -184,5 +184,7 @@ abstract class AbstractDB {
     
     public static abstract function addToCart(array $params);
     
+    public static abstract function emptyCart(array $id);
+    
 }
 

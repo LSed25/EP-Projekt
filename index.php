@@ -87,6 +87,10 @@ $urls = [
         StoreController::cart($id);
     },
             
+    "/^store\/user\/cart\/delete\/(\d+)$/" => function ($method, $id) {
+        StoreController::cartDelete($id);
+    },
+            
     "/^store\/admin$/" => function ($method) {
         if ($method == "POST") {
             AdminController::admin();
