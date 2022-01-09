@@ -155,3 +155,7 @@ VALUES ('admin', 'admin', "admin@ep.si", "$2y$10$ssuzhFFAOyEGYjHTvvI8K.WGlPqdVSD
 INSERT INTO `Prodajalec` (`Ime`, `Priimek`,`Enaslov`,`Geslo`)
 VALUES ('prvi', 'prodajalec', "prodaja@ep.si", "$2y$10$LUs.ueIi/l5FodEMBKNfce/wY783xzaJdrSgZEUOVYyDfG6X93s9O");
 /** geslo = prodaja **/
+
+INSERT INTO `Stranka` (`Ime`, `Priimek`, `Enaslov`, `Geslo`, `Ulica`, `Hisna_st`, `Posta`, `Postna_st`)
+VALUES ('Janez', 'Novak', "janeznovak@gmail.com", "$2y$10$MynsesefCOi.PS.g3QsCp.XbnxW0hzwEsT6AR7.QIDlr/z3sQK3Ju", 'Test', 13, 'Ljubljana', 1000);
+/** geslo = Test1234 **/

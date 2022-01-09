@@ -29,8 +29,13 @@
 </ul>
 
 <br></br>
-<button><a href="<?= BASE_URL . "store/" ?>">Zakljuci nakup</a></button> <button><a href="<?= BASE_URL . "store/user/cart/delete/" . $_SESSION["id"]["id"]?>">Izprazni košarico</a></button>
-
+<form action="<?= BASE_URL . "store/submit/" . $_SESSION["id"]["id"]?>" method="post">
+    <input type="hidden" name="id_stranka" value="<?= $_SESSION["id"]["id"] ?>" />
+    <input type="hidden" name="cena" value="<?= $kCena ?>" />
+    <button type="submit">Zakljuci nakup</button> 
+</form>
+<p>
+<button><a href="<?= BASE_URL . "store/user/cart/delete/" . $_SESSION["id"]["id"]?>">Izprazni košarico</a></button></p>
 // GUMB ZA SUBMIT(efekt), GUMB ZA SPREMINJANJE KOLIČINE(efekt, izbriši cart on submit??), BRISANJE ARTIKLOV
 
 <?php } ?>

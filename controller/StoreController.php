@@ -47,6 +47,17 @@ class StoreController {
         }
     }
     
+    public static function cartSubmit($id) {
+        $data = filter_input_array(INPUT_POST);
+        if (self::checkValues($data)) {
+
+            AdminDB::cartSubmit($data);
+            ViewHelper::redirect(BASE_URL . "store/user/" . $data["id_stranka"]);
+        } else {
+            self::cart($data["id_stranka"]);
+        }
+    }
+    
     public static function addToCart($id) {
         $newid['id_pk'] = $id;
         $data = AdminDB::pridobiPK($newid);

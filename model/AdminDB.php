@@ -308,6 +308,11 @@ class AdminDB extends AbstractDB {
         }
     }
     
+    public static function cartSubmit(array $params) {
+        return parent::modify("INSERT INTO Narocilo (id_stranka, Cena) "
+                        . " VALUES (:id_stranka, :cena)", $params);
+    }
+    
     public static function addToCart(array $params) {
         return parent::modify("INSERT INTO Kosarica (id_artikel, id_strankakosarica, Cena) "
                         . " VALUES (:id_pk, {$_SESSION['id']['id']}, :Cena)", $params);
