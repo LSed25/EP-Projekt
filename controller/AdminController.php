@@ -291,7 +291,7 @@ class AdminController {
 
             foreach ($vsa_narocila as $narocilo) {
                 $id = $narocilo["id_stranka"];
-                $narocilo["stranka"] = getCustomerData($id);
+                $narocilo["stranka"] = AdminDB::getCustomerData($id);
 
                 echo ViewHelper::render("view/view-prodajalec-narocilo.php", $vsa_narocila);
             }
