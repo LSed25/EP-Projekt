@@ -243,16 +243,37 @@ class StoreController {
         $newpassword=password_hash($_POST['newpassword'], PASSWORD_DEFAULT);
 
         if ($role == "stranka") {
-            $id = $_SESSION["id"];
-            $confirmpassword = AdminDB::getPassword($id)["Geslo"];
+            $who = $_POST["changedby"];
             
-            if (password_verify($oldpassword, $confirmpassword)) {
-                AdminDB::changePassword($id, $newpassword);
-                echo ViewHelper::render("view/view-stranka-profil.php");
+            if ($who == "stranka") {
+                $id = $_SESSION["id"];
             }
             else {
-                $podatki["message"] = "Sprememba gesla ni bila uspešna - staro geslo se ne ujema.";
+                $id = $_POST["id"];
             }
+
+            $confirmpassword = AdminDB::getPassword($id)["Geslo"];
+            $podatki = AdminDB::getCustomerData($id);
+
+            if (password_verify($oldpassword, $confirmpassword)) {
+                AdminDB::changePassword($id, $newpassword); 
+                $podatki["message"] = "Geslo je bilo uspešno spremenjeno.";
+                if ($who == "prodajalec") {
+                    echo ViewHelper::render("view/view-prodajalec-stranka.php", $podatki);
+                }
+                else {
+                    echo ViewHelper::render("view/view-stranka-profil.php", $podatki);
+                }
+             }
+             else {
+                 $podatki["message"] = "Sprememba gesla ni bila uspešna - staro geslo se ne ujema.";
+                 if ($who == "prodajalec") {
+                    echo ViewHelper::render("view/view-prodajalec-stranka.php", $podatki);
+                }
+                else {
+                    echo ViewHelper::render("view/view-stranka-profil.php", $podatki);
+                }
+             }
         }
         else if ($role == "administrator") {
             $id = $_SESSION["id"];
