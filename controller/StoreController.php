@@ -183,12 +183,9 @@ class StoreController {
         $password=$_POST['password'];
 
         $role=$_POST["role"];
-        
-        
-        $podatki["message"] = "";
 
         if ($role == "stranka") {
-            $id = AdminDB::getCustomerID($email);
+            $id = AdminDB::getCustomerID($email)["id"];
             
             if ($id != NULL) {
                 $confirmpassword = AdminDB::getPassword($id)["Geslo"];
@@ -204,10 +201,15 @@ class StoreController {
                 }
                 else {
                     $_SESSION["loggedIn"] = false;
-                    $podatki["message"] = "Prijava ni bila uspešna.";
+                    $podatki["message"] = "Prijava ni bila uspešna - geslo je napačno.";
 
                     echo ViewHelper::render("view/view-login.php", $podatki);
                 }
+            }
+            else {
+                $_SESSION["loggedIn"] = false;
+                $podatki["message"] = "Prijava ni bila uspešna - uporabnik s tem e-naslovom ne obstaja.";
+                echo ViewHelper::render("view/view-login.php", $podatki);
             }
         }
         else if ($role == "administrator") {
