@@ -150,17 +150,14 @@ class StoreController {
     }
 
     public static function changePassword() {
-        $role = $_SESSION["role"];
+        $role = $_POST["role"];
 
         $oldpassword=$_POST['oldpassword'];
         $newpassword=password_hash($_POST['newpassword'], PASSWORD_DEFAULT);
 
-        if (!$role) {
-            echo ViewHelper::redirect(BASE_URL . "store/");
-        }
-        else if ($role == "stranka") {
+        if ($role == "stranka") {
             $id = $_SESSION["id"];
-            $confirmpassword = AdminDB::getPassword($id);
+            $confirmpassword = AdminDB::getPassword($id)["Geslo"];
             
             if (password_verify($oldpassword, $confirmpassword)) {
                 AdminDB::changePassword($id, $newpassword);
@@ -172,7 +169,7 @@ class StoreController {
         }
         else if ($role == "administrator") {
             $id = $_SESSION["id"];
-            $confirmpassword = AdminDB::getAdminPassword($id);
+            $confirmpassword = AdminDB::getAdminPassword($id)["Geslo"];
             
             $podatki = AdminDB::getAdminData($id);
             if (password_verify($oldpassword, $confirmpassword)) {
@@ -188,7 +185,7 @@ class StoreController {
         }
         else if ($role == "prodajalec") {
             $id = $_SESSION["id"];
-            $confirmpassword = AdminDB::getSellerPassword($id);
+            $confirmpassword = AdminDB::getSellerPassword($id)["Geslo"];
 
             $podatki = AdminDB::getSellerData($id);
             if (password_verify($oldpassword, $confirmpassword)) {
@@ -200,6 +197,9 @@ class StoreController {
                 $podatki["message"] = "Sprememba gesla ni bila uspešna - staro geslo se ne ujema.";
                 echo ViewHelper::render("view/view-prodajalec.php", $podatki);
             }
+        }
+        else {
+            echo ViewHelper::redirect(BASE_URL . "store/");
         }
     }
 

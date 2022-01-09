@@ -22,6 +22,7 @@
          <input type="password" placeholder="Vnesi trenutno geslo" name="oldpassword" required>
          <label for="newpass"><b>Novo geslo</b></label>
          <input type="password" placeholder="Vnesi novo geslo" name="newpassword" required>
+         <input type="hidden" name="role" value="administrator">
          <button type="submit">Posodobi geslo</button>
     </form>
 

@@ -55,7 +55,9 @@ $urls = [
     },
 
     "/^store\/changepassword$/" => function ($method) {
-        StoreController::changePassword();
+        if ($method == "POST") {
+            StoreController::changePassword();
+        }
     },
 
     "/^store\/(\d+)$/" => function ($method, $id) {
