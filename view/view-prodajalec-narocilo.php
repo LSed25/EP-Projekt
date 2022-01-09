@@ -38,7 +38,42 @@
                  <button type="submit">Potrdi naročilo</button>
             </form>           
         </li>
-    <?php }
-    endforeach; ?>
+        <?php } endforeach; ?>
+
+</ul>
+
+<h2>Potrjena naročila:</h2>
+
+<ul>
+
+    <?php foreach ($narocila as $narocilo): 
+        if ($narocilo["Status"] == "potrjeno" && $narocilo["Zakljuceno"] == true) {
+            ?>
+        <li></li>
+        <?php } endforeach; ?>
+
+</ul>
+
+<h2>Preklicana naročila:</h2>
+
+<ul>
+
+    <?php foreach ($narocila as $narocilo): 
+        if ($narocilo["Status"] == "preklicano" && $narocilo["Zakljuceno"] == true) {
+            ?>
+        <li></li>
+        <?php } endforeach; ?>
+
+</ul>
+
+<h2>Stornirana naročila:</h2>
+
+<ul>
+
+    <?php foreach ($narocila as $narocilo): 
+        if ($narocilo["Status"] == "stornirano" && $narocilo["Zakljuceno"] == true) {
+            ?>
+        <li></li>
+        <?php } endforeach; ?>
 
 </ul>

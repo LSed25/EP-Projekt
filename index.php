@@ -91,6 +91,10 @@ $urls = [
         StoreController::cartDelete($id);
     },
             
+    "/^store\/submit\/(\d+)$/" => function ($method, $id) {
+        StoreController::cartSubmit($id);
+    },
+            
     "/^store\/admin$/" => function ($method) {
         if ($method == "POST") {
             AdminController::admin();
