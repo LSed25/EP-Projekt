@@ -205,6 +205,22 @@ class AdminDB extends AbstractDB {
         $statement->execute();
     }
 
+    public static function updateCustomer($id, $ime, $priimek, $email, $ulica, $hisna, $posta, $postna) {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("UPDATE Stranka SET Ime=:ime, Priimek=:priimek, Enaslov=:email, Ulica=:ulica,
+        Hisna_st=:hisna, Posta=:posta, Postna_st=:postna WHERE id=:id");
+        $statement->bindParam(":id", $id, PDO::PARAM_INT);
+        $statement->bindParam(":ime", $ime, PDO::PARAM_STR);
+        $statement->bindParam(":priimek", $priimek, PDO::PARAM_STR);
+        $statement->bindParam(":email", $email, PDO::PARAM_STR);
+        $statement->bindParam(":ulica", $ulica, PDO::PARAM_STR);
+        $statement->bindParam(":hisna", $hisna, PDO::PARAM_INT);
+        $statement->bindParam(":posta", $posta, PDO::PARAM_STR);
+        $statement->bindParam(":postna", $postna, PDO::PARAM_INT);
+        $statement->execute();
+    }
+
     public static function activateCustomer($id, $updatestatus) {
         $db = DBInit::getInstance();
 

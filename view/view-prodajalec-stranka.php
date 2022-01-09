@@ -59,7 +59,7 @@
         $text = "Deaktiviraj stranko";
     }
     else { ?>
-         <p>Prodajalec je trenutno deaktiviran.</p>
+         <p>Stranka je trenutno deaktivirana.</p>
     <?php
          $text = "Aktiviraj stranko";
     }

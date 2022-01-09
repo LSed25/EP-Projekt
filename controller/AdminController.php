@@ -235,14 +235,14 @@ class AdminController {
                 
                 break;
             case "add":
-                $ime = $podatki["name"];
-                $priimek = $podatki["surname"];
-                $email = $podatki["email"];
-                $password = password_hash($podatki["password"], PASSWORD_DEFAULT);
-                $ulica = $podatki["street"];
-                $hisna = $podatki["housenumber"];
-                $posta = $podatki["postoffice"];
-                $postna = $podatki["postnumber"];
+                $ime = $_POST["name"];
+                $priimek = $_POST["surname"];
+                $email = $_POST["email"];
+                $geslo = password_hash($_POST["password"], PASSWORD_DEFAULT);
+                $ulica = $_POST["street"];
+                $hisna = $_POST["housenumber"];
+                $posta = $_POST["postoffice"];
+                $postna = $_POST["postnumber"];
 
                 AdminDB::addCustomer($ime, $priimek, $email, $geslo, $ulica, $hisna, $posta, $postna);
          
@@ -252,12 +252,13 @@ class AdminController {
                 break;
             case "update":
                 $id = $_POST["id"];
-                $priimek = $podatki["surname"];
-                $email = $podatki["email"];
-                $ulica = $podatki["street"];
-                $hisna = $podatki["housenumber"];
-                $posta = $podatki["postoffice"];
-                $postna = $podatki["postnumber"];
+                $ime = $_POST["name"];
+                $priimek = $_POST["surname"];
+                $email = $_POST["email"];
+                $ulica = $_POST["street"];
+                $hisna = $_POST["housenumber"];
+                $posta = $_POST["postoffice"];
+                $postna = $_POST["postnumber"];
 
                 AdminDB::updateCustomer($id, $ime, $priimek, $email, $ulica, $hisna, $posta, $postna);
                 
