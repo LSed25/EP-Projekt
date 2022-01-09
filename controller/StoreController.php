@@ -31,7 +31,7 @@ class StoreController {
         echo ViewHelper::render("view/view-stranka-profil.php", AdminDB::getUser(["id" => $id]));
     }
     
-     public static function editForm($params) {
+    public static function editForm($params) {
         if (is_array($params)) {
             $values = $params;
         } else if (is_numeric($params)) {
@@ -49,7 +49,7 @@ class StoreController {
         if (self::checkValues($data)) {
             $data["id"] = $id;
             $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-            
+
             AdminDB::update($data);
             ViewHelper::redirect(BASE_URL . "store/user/" . $data["id"]);
         } else {
@@ -214,18 +214,32 @@ class StoreController {
             
         }
         else if ($role == "prodajalec") {
-            $id = $_SESSION["id"];
+            $id = $_POST["id"];
             $confirmpassword = AdminDB::getSellerPassword($id)["Geslo"];
+            
+            $who = $_POST["changedby"];
 
             $podatki = AdminDB::getSellerData($id);
             if (password_verify($oldpassword, $confirmpassword)) {
                AdminDB::changeSellerPassword($id, $newpassword); 
                $podatki["message"] = "Geslo je bilo uspešno spremenjeno.";
-               echo ViewHelper::render("view/view-prodajalec.php", $podatki);
+               if ($who == "administrator") {
+                   
+                   echo ViewHelper::render("view/view-admin-prodajalec.php", $podatki);
+               }
+               else {
+                   echo ViewHelper::render("view/view-prodajalec.php", $podatki);
+               }
             }
             else {
                 $podatki["message"] = "Sprememba gesla ni bila uspešna - staro geslo se ne ujema.";
-                echo ViewHelper::render("view/view-prodajalec.php", $podatki);
+                if ($who == "administrator") {
+                   
+                   echo ViewHelper::render("view/view-admin-prodajalec.php", $podatki);
+               }
+               else {
+                   echo ViewHelper::render("view/view-prodajalec.php", $podatki);
+               }
             }
         }
         else {

@@ -37,24 +37,6 @@ class AdminController {
         }
     }
 
-    public static function adminProdajalecForm($message = "", $id = NULL) {
-        if ($_SESSION["loggedIn"] == true && $_SESSION["role"] == "administrator") {
-            if ($id == NULL) {
-                $id = $_GET["id"];
-            }
-            $podatki = AdminDB::getSellerData($id);
-
-            if ($podatki != NULL) {
-                echo ViewHelper::render("view/view-admin-prodajalec.php", $podatki, $message);
-            }
-            else {
-                $message = "Prodajalca ni bilo mogoče najti.";
-                $podatki = AdminDB::getAdminData($_SESSION["id"]);
-                echo ViewHelper::render("view/view-admin.php", $podatki, $message);
-            }
-        }
-    }
-
     public static function adminProdajalec() {
         $do = $_POST["do"];
 
@@ -63,7 +45,15 @@ class AdminController {
                 $id_prodajalec = $_POST["id"];
 
                 $podatki = AdminDB::getSellerData($id_prodajalec);
-                echo ViewHelper::render("view/view-admin-prodajalec.php", $podatki);
+                if ($podatki) {
+                    echo ViewHelper::render("view/view-admin-prodajalec.php", $podatki);
+                }
+                else {
+                    $podatki = AdminDB::getAdminData($_SESSION["id"]);
+                    $podatki["message"] = "Prodajalec s tem ID ne obstaja.";
+                    echo ViewHelper::render("view/view-admin.php", $podatki);
+                }
+                
                 break;
             case "add":
                 $ime = $_POST["name"];
@@ -72,9 +62,10 @@ class AdminController {
                 $geslo = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
                 AdminDB::insertSeller($ime, $priimek, $email, $geslo);
-
-                $message = "Prodajalec je bil uspešno dodan.";
-                adminForm($message);
+         
+                $podatki = AdminDB::getAdminData($_SESSION["id"]);
+                $podatki["message"] = "Prodajalec je bil uspešno dodan.";
+                echo ViewHelper::render("view/view-admin.php", $podatki);
                 break;
             case "update":
                 $id = $_POST["id"];
@@ -129,8 +120,6 @@ class AdminController {
         
     }
 }
-
-
 
 
 

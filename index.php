@@ -2,10 +2,9 @@
 
 // enables sessions for the entire app
 session_start();
-
 if(!isset($_SESSION["id"])) {
-    $_SESSION["loggedIn"] = false;
     $_SESSION["role"] = "anon";
+    $_SESSION["loggedIn"] = false;
 }else{
     $_SESSION["loggedIn"] = true;
 }
@@ -67,6 +66,7 @@ $urls = [
     "/^store\/user\/(\d+)$/" => function ($method, $id) {
         StoreController::getCustomer($id);
     },
+            
     "/^store\/user\/edit\/(\d+)$/" => function ($method, $id) {
         if ($method == "POST") {
             StoreController::edit($id);
@@ -86,9 +86,7 @@ $urls = [
     "/^store\/admin\/prodajalec$/" => function ($method) {
         if ($method == "POST") {
             AdminController::adminProdajalec();
-        } else {
-            AdminController::adminProdajalecForm();
-        }
+        } 
     },
             
     "/^store\/(\d+)$/" => function ($method, $id) {
@@ -102,7 +100,6 @@ $urls = [
     //--------
     // API
     //--------
-            
     "/^api\/store$/" => function ($method) {
         switch ($method) {
             default: # GET
