@@ -215,6 +215,75 @@ class AdminController {
         }
     }
 
+    public static function stranke() {
+        $do = $_POST["do"];
+
+        switch($do){
+            case "search":
+                $id_stranka = $_POST["id"];
+
+                $podatki = AdminDB::getCustomerData($id_stranka);
+
+                if ($podatki) {
+                    echo ViewHelper::render("view/view-prodajalec-stranka.php", $podatki);
+                }
+                else {
+                    $podatki = AdminDB::getSellerData($_SESSION["id"]);
+                    $podatki["message"] = "Stranka s tem ID ne obstaja.";
+                    echo ViewHelper::render("view/view-prodajalec.php", $podatki);
+                }
+                
+                break;
+            case "add":
+                $ime = $podatki["name"];
+                $priimek = $podatki["surname"];
+                $email = $podatki["email"];
+                $password = password_hash($podatki["password"], PASSWORD_DEFAULT);
+                $ulica = $podatki["street"];
+                $hisna = $podatki["housenumber"];
+                $posta = $podatki["postoffice"];
+                $postna = $podatki["postnumber"];
+
+                AdminDB::addCustomer($ime, $priimek, $email, $geslo, $ulica, $hisna, $posta, $postna);
+         
+                $podatki = AdminDB::getSellerData($_SESSION["id"]);
+                $podatki["message"] = "Stranka je bila uspešno dodana.";
+                echo ViewHelper::render("view/view-prodajalec.php", $podatki);
+                break;
+            case "update":
+                $id = $_POST["id"];
+                $priimek = $podatki["surname"];
+                $email = $podatki["email"];
+                $ulica = $podatki["street"];
+                $hisna = $podatki["housenumber"];
+                $posta = $podatki["postoffice"];
+                $postna = $podatki["postnumber"];
+
+                AdminDB::updateCustomer($id, $ime, $priimek, $email, $ulica, $hisna, $posta, $postna);
+                
+                $podatki = AdminDB::getCustomerData($id);
+                $podatki["message"] = "Stranka je bila uspešno posodobljena.";
+                echo ViewHelper::render("view/view-prodajalec-stranka.php", $podatki);
+                break;
+            case "status":
+                $id = $_POST["id"];
+
+                if ($_POST["status"] == true) {
+                    $updatestatus = false;
+                    $podatki["message"] = "Stranka je bila uspešno deaktivirana.";
+                }
+                else {
+                    $updatestatus = true;
+                    $podatki["message"] = "Stranka je bila uspešno aktivirana.";
+                }
+
+                AdminDB::activateCustomer($id, $updatestatus);
+                $podatki = AdminDB::getCustomerData($id);
+                echo ViewHelper::render("view/view-prodajalec-stranka.php", $podatki);
+                break;  
+        }
+    }
+
     public static function getRules() {
         return [
             'name' => FILTER_SANITIZE_SPECIAL_CHARS,

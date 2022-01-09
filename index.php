@@ -118,6 +118,12 @@ $urls = [
             AdminController::produkti();
         }
     },
+
+    "/^store\/stranka$/" => function ($method) {
+        if ($method == "POST") {
+            AdminController::stranke();
+        }
+    },
             
     "/^store\/(\d+)$/" => function ($method, $id) {
         StoreController::pridobiEno($id);

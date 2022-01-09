@@ -38,7 +38,7 @@
          <button type="submit">Posodobi podatke stranke</button>
     </form>
     
-    <h3>Spremeni geslo prodajalca</h3>
+    <h3>Spremeni geslo stranke</h3>
     <form action="<?= BASE_URL . "store/changepassword" ?>" method="post">
          <input type="hidden" name="id" value="<?=$variables["id"]?>">
          <input type="hidden" name="changedby" value="prodajalec">

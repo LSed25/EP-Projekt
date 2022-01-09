@@ -188,6 +188,32 @@ class AdminDB extends AbstractDB {
         $statement->bindParam(":newstatus", $updatestatus, PDO::PARAM_BOOL);
         $statement->execute();
     }
+
+    public static function addCustomer($ime, $priimek, $email, $geslo, $ulica, $hisna, $posta, $postna) {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("INSERT INTO Stranka (Ime, Priimek, Enaslov, Geslo, Ulica, Hisna_st, Posta, Postna_st)
+            VALUES (:ime, :priimek, :email, :geslo, :ulica, :hisna, :posta, :postna)");
+        $statement->bindParam(":ime", $ime, PDO::PARAM_STR);
+        $statement->bindParam(":priimek", $priimek, PDO::PARAM_STR);
+        $statement->bindParam(":email", $email, PDO::PARAM_STR);
+        $statement->bindParam(":geslo", $geslo, PDO::PARAM_STR);
+        $statement->bindParam(":ulica", $ulica, PDO::PARAM_STR);
+        $statement->bindParam(":hisna", $hisna, PDO::PARAM_INT);
+        $statement->bindParam(":posta", $posta, PDO::PARAM_STR);
+        $statement->bindParam(":postna", $postna, PDO::PARAM_INT);
+        $statement->execute();
+    }
+
+    public static function activateCustomer($id, $updatestatus) {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("UPDATE Stranka
+           SET Aktiviran=:newstatus WHERE id=:id");
+        $statement->bindParam(":id", $id, PDO::PARAM_INT);
+        $statement->bindParam(":newstatus", $updatestatus, PDO::PARAM_BOOL);
+        $statement->execute();
+    }
     
     
     
@@ -300,6 +326,17 @@ class AdminDB extends AbstractDB {
         $statement = $db->prepare("SELECT id FROM Stranka
             WHERE Enaslov=:email");
         $statement->bindParam(":email", $email, PDO::PARAM_STR);
+        $statement->execute();
+
+        return $statement->fetch();
+    }
+
+    public static function getCustomerData($id) {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("SELECT * FROM Stranka
+            WHERE id=:id");
+        $statement->bindParam(":id", $id, PDO::PARAM_INT);
         $statement->execute();
 
         return $statement->fetch();
