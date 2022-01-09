@@ -29,6 +29,18 @@
          <input type="email" placeholder="Vnesi nov e-naslov" name="newemail" value="<?=$variables["Enaslov"]?>">
          <button type="submit">Posodobi podatke prodajalca</button>
     </form>
+    
+    <h3>Spremeni geslo prodajalca</h3>
+    <form action="<?= BASE_URL . "store/changepassword" ?>" method="post">
+         <input type="hidden" name="id" value="<?=$variables["id_prodajalec"]?>">
+         <input type="hidden" name="changedby" value="administrator">
+         <label for="oldpass"><b>Trenutno geslo</b></label>
+         <input type="password" placeholder="Vnesi trenutno geslo" name="oldpassword" required>
+         <label for="newpass"><b>Novo geslo</b></label>
+         <input type="password" placeholder="Vnesi novo geslo" name="newpassword" required>
+         <input type="hidden" name="role" value="prodajalec">
+         <button type="submit">Posodobi geslo</button>
+    </form>
 
     <h3>Status prodajalca</h3>
 
