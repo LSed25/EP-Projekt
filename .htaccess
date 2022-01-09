@@ -2,8 +2,12 @@ RewriteEngine On
 RewriteBase /netbeans/EP-Projekt/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{HTTPS} on
 RewriteRule ^(.*) index.php/$1 [L,PT,QSA]
+
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteCond %{REQUEST_URI} !api
+RewriteRule ".*" "https://%{HTTP_HOST}%{REQUEST_URI}"
 
 SSLVerifyClient optional
 SSLVerifyDepth 1
