@@ -154,3 +154,28 @@ VALUES ('admin', 'admin', "admin@ep.si", "$2y$10$ssuzhFFAOyEGYjHTvvI8K.WGlPqdVSD
 INSERT INTO `Prodajalec` (`Ime`, `Priimek`,`Enaslov`,`Geslo`)
 VALUES ('prvi', 'prodajalec', "prodaja@ep.si", "$2y$10$LUs.ueIi/l5FodEMBKNfce/wY783xzaJdrSgZEUOVYyDfG6X93s9O");
 /** geslo = prodaja **/
+
+INSERT INTO `Stranka` (`id`, `Ime`, `Priimek`,`Enaslov`,`Geslo`, `Ulica`, `Hisna_st`,`Posta`,`Postna_st`)
+VALUES (1, 'Ana', 'Novak', "stranka1@ep.si", "$2y$10$68F7.Wwf8F9n04apy6PaCev7jhEfAjs78cLEJX5GS8PKn21ubjC5a", "Slovenska ulica", 13, "Ljubljana", 1000),
+(2, 'Peter', 'Kovač', "stranka2@ep.si", "$2y$10$wrcOZkPmQtNEdSMwzWkKFe26Iwt93vZEUDmihWQEt7U1FwZnbXuAS", "Gosposvetska cesta", 33, "Maribor", 2000),
+(3, 'Luka', 'Prevc', "stranka3@ep.si", "$2y$10$808l1x1QF1agvJQ2O3wLBeMDgbFPkMVf/GJGW/yfE4gL8vX6Et7Py", "Pot v park", 32, "Ljubljana", 1000),
+(4, 'Tina', 'Pahor', "stranka4@ep.si", "$2y$10$RLE9OhTzLMRw6jZWVWIYie902DctdX6Dmj7yQ1oxGiO9aabMxiU0m", "Sončna ulica", 77, "Celje", 3000),
+(5, 'Janez', 'Kranjec', "stranka5@ep.si", "$2y$10$VVR/J9qQ3jFnW07li2qvL.oz4YDSPaXu8vvXOPCj1KqSV2MDgE/76", "Prekmurska cesta", 23, "Murska sobota", 9000);
+/** gesla = stranka1, stranka2, stranka3, stranka4, stranka5 **/
+
+INSERT INTO `Narocilo` (`id_narocilo`, `Datum`, `Status`,`Zakljuceno`,`id_stranka`)
+VALUES (1, '2022-01-01 10:34:09', 'neobdelano', 0, 1),
+(2, '2022-01-04 11:12:00', 'neobdelano', 0, 2),
+(3, '2022-01-03 02:32:23', 'neobdelano', 0, 5),
+(4, '2021-11-23 11:38:03', 'neobdelano', 1, 3),
+(5, '2022-01-05 22:33:03', 'neobdelano', 1, 2),
+(6, '2021-12-31 02:12:03', 'neobdelano', 1, 4),
+(7, '2022-05-21 01:18:09', 'potrjeno', 1, 3),
+(8, '2021-01-01 14:32:09', 'potrjeno', 1, 2),
+(9, '2022-02-01 16:34:09', 'potrjeno', 1, 5),
+(10, '2021-06-18 18:43:00', 'preklicano', 1, 4),
+(11, '2022-01-01 19:52:12', 'preklicano', 1, 1),
+(12, '2021-08-02 20:26:02', 'preklicano', 1, 1),
+(13, '2022-01-01 21:26:09', 'stornirano', 1, 2),
+(14, '2021-12-12 22:32:09', 'stornirano', 1, 3),
+(15, '2021-12-11 04:34:09', 'stornirano', 1, 5);
