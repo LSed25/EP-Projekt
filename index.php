@@ -124,6 +124,9 @@ $urls = [
             AdminController::stranke();
         }
     },
+    "/^store\/narocilo$/" => function ($method) {
+        AdminController::zgodovinaNarocil();
+    },
             
     "/^store\/(\d+)$/" => function ($method, $id) {
         StoreController::pridobiEno($id);

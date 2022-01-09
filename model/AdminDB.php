@@ -230,6 +230,15 @@ class AdminDB extends AbstractDB {
         $statement->bindParam(":newstatus", $updatestatus, PDO::PARAM_BOOL);
         $statement->execute();
     }
+
+    public static function getOrders() {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("SELECT * FROM Narocilo ORDER BY Datum DESC");
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
     
     
     

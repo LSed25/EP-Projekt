@@ -285,6 +285,22 @@ class AdminController {
         }
     }
 
+    public static function zgodovinaNarocil() {
+        if ($_SESSION["loggedIn"] == true && $_SESSION["role"] == "prodajalec")) {
+            $vsa_narocila = AdminDB::getOrders();
+
+            foreach $vsa_narocila as $narocilo {
+                $id = $narocilo["id_stranka"];
+                $narocilo["stranka"] = getCustomerData($id);
+
+                echo ViewHelper::render("view/view-prodajalec-narocilo.php", $vsa_narocila);
+            }
+        }
+        else {
+            echo ViewHelper::redirect(BASE_URL . "store/");
+        }
+    }
+
     public static function getRules() {
         return [
             'name' => FILTER_SANITIZE_SPECIAL_CHARS,
