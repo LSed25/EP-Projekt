@@ -170,6 +170,13 @@ class AdminDB extends AbstractDB {
         }
     }
     
+    public static function update(array $params) {
+        return parent::modify("UPDATE Stranka SET Ime = :firstname, Priimek = :lastname, "
+                        . "Enaslov = :email, Geslo = :password, Ulica = :ulica, Hisna_st = :hisnast, "
+                        . "Posta = :posta, POstna_st = :postnast"
+                        . " WHERE id = :id", $params);
+    }
+    
     public static function getUser(array $id) {
         $uporabnik = parent::query("SELECT id, Ime, Priimek, Enaslov, Geslo, Ulica, Hisna_st, Posta, Postna_st"
                         . " FROM Stranka"
@@ -226,8 +233,6 @@ class AdminDB extends AbstractDB {
     }
     
     public static function insertArticle(array $params) {}
-
-    public static function update(array $params) {}
 
     public static function delete(array $id) {}
 }
