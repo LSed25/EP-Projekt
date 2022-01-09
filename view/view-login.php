@@ -11,4 +11,7 @@
 
 <div><?php if (isset($variables["message"])) {echo $variables["message"];}?></div>
 
-<p><a href="<?= BASE_URL . "store/syslogin" ?>">Sistemska prijava</a></p>
+<button><a href="<?= BASE_URL . "store/" ?>">Nazaj na seznam izdelkov</a></button>
+<br></br>
+<button><a href="<?= BASE_URL . "store/syslogin" ?>">Sistemska prijava</a></button>
+

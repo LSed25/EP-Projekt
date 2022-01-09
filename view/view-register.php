@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 
 <link rel="stylesheet" type="text/css" href="<?= CSS_URL . "style.css" ?>">
 <meta charset="UTF-8" />
@@ -17,15 +17,8 @@
         <label>Poštna št.: <input type="number" name="postnast" value="<?= $postnast ?>" required /></label></p>
     <p><button type="submit">Registracija</button></p>
 </form>
-<a href="<?= BASE_URL . "store/" ?>">Nazaj na seznam izdelkov</a>
+<button><a href="<?= BASE_URL . "store/" ?>">Nazaj na seznam izdelkov</a></button>
 
-<?php echo password_hash("testnogeslo", PASSWORD_DEFAULT); 
-       if(password_verify("testnogeslo", password_hash("testnogeslo", PASSWORD_DEFAULT))) {
-           echo "\r\nOwO";
-       }else{
-           echo "TwT";
-       }
-?>
 
 
 
