@@ -20,7 +20,11 @@ class StoreController {
     }
     
     public static function pridobiEno($id) {
-        echo ViewHelper::render("view/view-knjiga.php", AdminDB::get(["id" => $id]));
+            if ($_SESSION["loggedIn"] == false) {
+            echo ViewHelper::render("view/view-knjiga.php", AdminDB::get(["id" => $id]));
+        }else{
+            echo ViewHelper::render("view/view-knjiga-stranka.php", AdminDB::get(["id" => $id]));
+        }
     }
     
     public static function getCustomer($id) {
