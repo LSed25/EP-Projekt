@@ -67,6 +67,13 @@ $urls = [
     "/^store\/user\/(\d+)$/" => function ($method, $id) {
         StoreController::getCustomer($id);
     },
+    "/^store\/user\/edit\/(\d+)$/" => function ($method, $id) {
+        if ($method == "POST") {
+            StoreController::edit($id);
+        } else {
+            StoreController::editForm($id);
+        }
+    },
 
     "/^store\/admin$/" => function ($method) {
         if ($method == "POST") {

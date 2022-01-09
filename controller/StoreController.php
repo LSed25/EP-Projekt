@@ -27,6 +27,32 @@ class StoreController {
         echo ViewHelper::render("view/view-stranka-profil.php", AdminDB::getUser(["id" => $id]));
     }
     
+     public static function editForm($params) {
+        if (is_array($params)) {
+            $values = $params;
+        } else if (is_numeric($params)) {
+            $values = AdminDB::getUser(["id" => $params]);
+        } else {
+            throw new InvalidArgumentException("Cannot show form.");
+        }
+
+        echo ViewHelper::render("view/user-edit.php", $values);
+    }
+
+    public static function edit($id) {
+        $data = filter_input_array(INPUT_POST, self::getRules());
+
+        if (self::checkValues($data)) {
+            $data["id"] = $id;
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+            
+            AdminDB::update($data);
+            ViewHelper::redirect(BASE_URL . "store/user/" . $data["id"]);
+        } else {
+            self::editForm($data);
+        }
+    }
+    
     public static function registerForm($values = [
         "firstname" => "",
         "lastname" => "",

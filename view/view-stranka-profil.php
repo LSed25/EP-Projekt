@@ -14,7 +14,7 @@
 <p>Naslov: <?= $Ulica ?> <?= $Hisna_st ?></p>
 <p>Pošta: <?= $Posta ?> <?= $Postna_st ?></p>
 
-<button><a href="<?= BASE_URL . "store/"?>">Spremeni podatke</a></button> 
+<button><a href="<?= BASE_URL . "store/user/edit/" . $id?>">Spremeni podatke</a></button> 
 
 <br></br>
 
