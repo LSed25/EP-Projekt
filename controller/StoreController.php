@@ -60,8 +60,20 @@ class StoreController {
     }
     
     public static function cart($id) {
+        $books = AdminDB::getCartUser(["id" => $id]);
+        //var_dump($books);
+        for($i = 0; $i < count($books); $i++) {
+            $newid['id_pk'] = $books[$i]['id_artikel'];
+            $pks[$i] = AdminDB::pridobiPKA($newid);    
+        }
+        for($i = 0; $i < count($pks); $i++) {
+            $newid['id'] = $pks[$i]['id_produkt'];
+            $products[$i] = AdminDB::get($newid);
+        }
         echo ViewHelper::render("view/view-cart.php", [
-                 "books" => AdminDB::getCartUser(["id" => $id])
+                 "books" => $books,
+                 "products" => $products,
+                 "pks" => $pks
                 ]);
     }
     
