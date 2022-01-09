@@ -83,6 +83,10 @@ $urls = [
         StoreController::addToCart($id);
     },
             
+    "/^store\/user\/cart\/(\d+)$/" => function ($method, $id) {
+        StoreController::cart($id);
+    },
+            
     "/^store\/admin$/" => function ($method) {
         if ($method == "POST") {
             AdminController::admin();

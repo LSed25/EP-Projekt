@@ -6,7 +6,7 @@
 
 <h1>Knjigarna</h1>
 
-<a href="<?= BASE_URL . "store/user/" . $_SESSION["id"]["id"]?>">Moj profil</a>
+<button><a href="<?= BASE_URL . "store/user/" . $_SESSION["id"]["id"]?>">Moj profil</a></button> <button style="float: right;"><a href="<?= BASE_URL . "store/user/cart/" . $_SESSION["id"]["id"]?>">Košarica</a></button>
 
 <ul>
 
@@ -16,3 +16,4 @@
     <?php endforeach; ?>
 
 </ul>
+

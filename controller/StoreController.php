@@ -59,6 +59,12 @@ class StoreController {
         }
     }
     
+    public static function cart($id) {
+        echo ViewHelper::render("view/view-cart.php", [
+                 "books" => AdminDB::getCartUser(["id" => $id])
+                ]);
+    }
+    
     public static function editForm($params) {
         if (is_array($params)) {
             $values = $params;
