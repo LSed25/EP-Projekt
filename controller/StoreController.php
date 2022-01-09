@@ -209,7 +209,7 @@ class StoreController {
                 if ($verified) {
                     $podatki = AdminDB::getSellerData($id_prodajalec);
 
-                    if ($podatki["Aktiviran"] == 1) {
+                    if ($podatki["Aktiviran"] == true) {
                         $_SESSION["id"] = $id_prodajalec;
                         $_SESSION["role"] = $role;
                         $_SESSION["loggedIn"] = true;
@@ -271,10 +271,15 @@ class StoreController {
             
         }
         else if ($role == "prodajalec") {
-            $id = $_POST["id"];
-            $confirmpassword = AdminDB::getSellerPassword($id)["Geslo"];
-            
             $who = $_POST["changedby"];
+            
+            if ($who == "prodajalec") {
+                $id = $_SESSION["id"];
+            }
+            else {
+                $id = $_POST["id"];
+            }
+            $confirmpassword = AdminDB::getSellerPassword($id)["Geslo"];
 
             $podatki = AdminDB::getSellerData($id);
             if (password_verify($oldpassword, $confirmpassword)) {

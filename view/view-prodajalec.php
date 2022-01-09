@@ -52,7 +52,7 @@
          <input type="text" placeholder="Vnesi naslov knjige" name="title" required>
          <label for="year"><b>Leto izdaje</b></label>
          <input type="number" placeholder="Vnesi leto izdaje" name="year" required>
-         <label for="price"><b>Geslo</b></label>
+         <label for="price"><b>Cena</b></label>
          <input type="number" placeholder="Vnesi ceno" name="price" min="0.01" step=".01" required>
          <button type="submit">Ustvari</button>
     </form>
@@ -101,4 +101,3 @@
     </form>
 
 </div>
-
