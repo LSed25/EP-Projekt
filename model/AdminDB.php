@@ -288,6 +288,10 @@ class AdminDB extends AbstractDB {
                         . " WHERE id_pk = :id", $params);
     }
     
+    public static function buyDelete(array $id) {
+        return parent::modify("DELETE FROM Kosarica WHERE id_kosarica = :id", $id);
+    }
+    
     public static function pridobiPKID() {
         $id = parent::query("SELECT LAST_INSERT_ID()");
 
@@ -345,7 +349,7 @@ class AdminDB extends AbstractDB {
     }
     
     public static function getCartUser(array $id) {
-        return parent::query("SELECT id_artikel, Cena"
+        return parent::query("SELECT *"
                         . " FROM Kosarica"
                         . " WHERE id_strankakosarica = :id", $id);
     }

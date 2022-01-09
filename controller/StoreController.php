@@ -91,6 +91,12 @@ class StoreController {
         
     }
     
+    public static function cartDeleteOne($id) {
+        AdminDB::buyDelete(["id" => $id]);
+        echo ViewHelper::redirect(BASE_URL . "store/user/cart/" . $_SESSION["id"]["id"]);
+        
+    }
+    
     public static function cart($id) {
         $books = 0;
         $books = AdminDB::getCartUser(["id" => $id]);

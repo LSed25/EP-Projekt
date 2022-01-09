@@ -23,7 +23,7 @@
     <?php foreach ($books as $book): ?>
         <form action="<?= BASE_URL . "store/user/cart/edit/" . $pks[$idx]["id_pk"] ?>" method="post">
             <input type="hidden" name="cena" value="<?=$products[$idx]["Cena"]?>"/>
-            <li> <?= $products[$idx]["Naslov"] ?><p>Količina: <input style="width: 40px;" type="number" name="amount" min="1" value="<?= $pks[$idx]["Kolicina"] ?>"/></p><?= $pks[$idx]["Cena"] ?> EUR <p><button type="submit">Uredi</button></p> </li>
+            <li> <?= $products[$idx]["Naslov"] ?><p>Količina: <input style="width: 40px;" type="number" name="amount" min="1" value="<?= $pks[$idx]["Kolicina"] ?>"/></p><?= $pks[$idx]["Cena"] ?> EUR <p><button type="submit">Uredi</button> <button><a href="<?= BASE_URL . "store/user/cart/deleteOne/" . $book["id_kosarica"]?>">Izbriši</a></button></p> </li>
         </form>
             <?php $kCena += $pks[$idx]["Cena"]; $idx++;?>
         <?php endforeach; ?>
@@ -39,6 +39,5 @@
 </form>
 <p>
 <button><a href="<?= BASE_URL . "store/user/cart/delete/" . $_SESSION["id"]["id"]?>">Izprazni košarico</a></button></p>
-// GUMB ZA SPREMINJANJE KOLIČINE(efekt), BRISANJE ARTIKLOV
 
 <?php } ?>

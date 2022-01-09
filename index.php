@@ -90,6 +90,10 @@ $urls = [
     "/^store\/user\/cart\/delete\/(\d+)$/" => function ($method, $id) {
         StoreController::cartDelete($id);
     },
+    
+    "/^store\/user\/cart\/deleteOne\/(\d+)$/" => function ($method, $id) {
+        StoreController::cartDeleteOne($id);
+    },
             
     "/^store\/user\/cart\/edit\/(\d+)$/" => function ($method, $id) {
         StoreController::cartEdit($id);
