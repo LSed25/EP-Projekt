@@ -289,11 +289,10 @@ class AdminController {
         if ($_SESSION["loggedIn"] == true && $_SESSION["role"] == "prodajalec") {
             $vsa_narocila = AdminDB::getOrders();
 
-            foreach ($vsa_narocila as $narocilo) {
-                $id = $narocilo["id_stranka"];
-                $narocilo["stranka"] = AdminDB::getCustomerData($id);
-
-                
+            for($i = 0; $i < count($vsa_narocila); $i++) {
+                $id_stranka = $vsa_narocila[$i]["id_stranka"]; 
+                $stranka = AdminDB::getCustomerData($id_stranka);
+                $vsa_narocila[$i]["Stranka"] = $stranka;  
             }
             
             echo ViewHelper::render("view/view-prodajalec-narocilo.php", $vsa_narocila);

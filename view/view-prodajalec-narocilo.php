@@ -21,8 +21,13 @@
         if ($narocilo["Status"] == "neobdelano" && $narocilo["Zakljuceno"] == true) {
             ?>
         <li>
-            <p><b>ID NAROČILA: </b><?php echo $narocilo["id_narocilo"]; ?></p>
+            <p><b>PODATKI O NAROČILU: </b></p>
+            <p><b>ID naročila: </b><?php echo $narocilo["id_narocilo"]; ?></p>
             <p><b>Datum naročila: </b><?php echo $narocilo["Datum"]; ?></p>
+            <p><b>PODATKI O KUPCU: </b></p>
+            <p><b>Ime in priimek: </b><?php echo $narocilo["Stranka"]["Ime"]," ",$narocilo["Stranka"]["Priimek"]; ?></p>
+            <p><b>Naslov: </b><?php echo $narocilo["Stranka"]["Ulica"]," ",$narocilo["Stranka"]["Hisna_st"],", ",$narocilo["Stranka"]["Postna_st"]," ",$narocilo["Stranka"]["Posta"]; ?></p>
+            <p><b>Kontakt: </b><?php echo $narocilo["Stranka"]["Enaslov"]; ?></p>
             <form action="<?= BASE_URL . "store/narocilo" ?>" method="post">
                  <input type="hidden" name="status" value="potrjeno">
                  <input type="hidden" name="id" value="<?=$narocilo["id_narocilo"]?>">
@@ -46,8 +51,13 @@
         if ($narocilo["Status"] == "potrjeno" && $narocilo["Zakljuceno"] == true) {
             ?>
         <li>
-            <p><b>ID NAROČILA: </b><?php echo $narocilo["id_narocilo"]; ?></p>
+            <p><b>PODATKI O NAROČILU: </b></p>
+            <p><b>ID naročila: </b><?php echo $narocilo["id_narocilo"]; ?></p>
             <p><b>Datum naročila: </b><?php echo $narocilo["Datum"]; ?></p>
+            <p><b>PODATKI O KUPCU: </b></p>
+            <p><b>Ime in priimek: </b><?php echo $narocilo["Stranka"]["Ime"]," ",$narocilo["Stranka"]["Priimek"]; ?></p>
+            <p><b>Naslov: </b><?php echo $narocilo["Stranka"]["Ulica"]," ",$narocilo["Stranka"]["Hisna_st"],", ",$narocilo["Stranka"]["Postna_st"]," ",$narocilo["Stranka"]["Posta"]; ?></p>
+            <p><b>Kontakt: </b><?php echo $narocilo["Stranka"]["Enaslov"]; ?></p>
             <form action="<?= BASE_URL . "store/narocilo" ?>" method="post">
                  <input type="hidden" name="status" value="stornirano">
                  <input type="hidden" name="id" value="<?=$narocilo["id_narocilo"]?>">
@@ -66,8 +76,13 @@
         if ($narocilo["Status"] == "preklicano" && $narocilo["Zakljuceno"] == true) {
             ?>
         <li>
-            <p><b>ID NAROČILA: </b><?php echo $narocilo["id_narocilo"]; ?></p>
+            <p><b>PODATKI O NAROČILU: </b></p>
+            <p><b>ID naročila: </b><?php echo $narocilo["id_narocilo"]; ?></p>
             <p><b>Datum naročila: </b><?php echo $narocilo["Datum"]; ?></p>
+            <p><b>PODATKI O KUPCU: </b></p>
+            <p><b>Ime in priimek: </b><?php echo $narocilo["Stranka"]["Ime"]," ",$narocilo["Stranka"]["Priimek"]; ?></p>
+            <p><b>Naslov: </b><?php echo $narocilo["Stranka"]["Ulica"]," ",$narocilo["Stranka"]["Hisna_st"],", ",$narocilo["Stranka"]["Postna_st"]," ",$narocilo["Stranka"]["Posta"]; ?></p>
+            <p><b>Kontakt: </b><?php echo $narocilo["Stranka"]["Enaslov"]; ?></p>
         </li>
         <?php } endforeach; ?>
 
@@ -81,10 +96,14 @@
         if ($narocilo["Status"] == "stornirano" && $narocilo["Zakljuceno"] == true) {
             ?>
         <li>
-            <p><b>ID NAROČILA: </b><?php echo $narocilo["id_narocilo"]; ?></p>
+            <p><b>PODATKI O NAROČILU: </b></p>
+            <p><b>ID naročila: </b><?php echo $narocilo["id_narocilo"]; ?></p>
             <p><b>Datum naročila: </b><?php echo $narocilo["Datum"]; ?></p>
+            <p><b>PODATKI O KUPCU: </b></p>
+            <p><b>Ime in priimek: </b><?php echo $narocilo["Stranka"]["Ime"]," ",$narocilo["Stranka"]["Priimek"]; ?></p>
+            <p><b>Naslov: </b><?php echo $narocilo["Stranka"]["Ulica"]," ",$narocilo["Stranka"]["Hisna_st"],", ",$narocilo["Stranka"]["Postna_st"]," ",$narocilo["Stranka"]["Posta"]; ?></p>
+            <p><b>Kontakt: </b><?php echo $narocilo["Stranka"]["Enaslov"]; ?></p>
         </li>
         <?php } endforeach; ?>
 
 </ul>
-
