@@ -348,6 +348,12 @@ class AdminDB extends AbstractDB {
         }
     }
     
+    public static function getAllOrders(array $id) {
+        return parent::query("SELECT *"
+                        . " FROM Narocilo  WHERE id_stranka = :id"
+                        . " ORDER BY id_narocilo ASC", $id);
+    }
+    
     public static function getCartUser(array $id) {
         return parent::query("SELECT *"
                         . " FROM Kosarica"

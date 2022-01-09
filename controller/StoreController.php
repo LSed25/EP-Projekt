@@ -28,7 +28,12 @@ class StoreController {
     }
     
     public static function getCustomer($id) {
-        echo ViewHelper::render("view/view-stranka-profil.php", AdminDB::getUser(["id" => $id]));
+        $user = AdminDB::getUser(["id" => $id]);
+        $orders = AdminDB::getAllOrders(["id" => $id]);
+        echo ViewHelper::render("view/view-stranka-profil.php", [
+                     "user" => $user,
+                     "orders" => $orders
+            ]);
     }
     
     public static function vPK() {
