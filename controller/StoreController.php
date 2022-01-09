@@ -37,23 +37,25 @@ class StoreController {
         if (self::checkValues($data)) {
             $kCena = $data['cena']*$data['kolicina'];
             $data['cena'] = $kCena;
+            
+            
             AdminDB::buy($data);
-            echo ViewHelper::redirect(BASE_URL . "store/cart");
+            $id = AdminDB::pridobiPKID();
+            echo ViewHelper::redirect(BASE_URL . "store/cart/" . $id['LAST_INSERT_ID()']);
         } else {
             self::pridobiEno($id);
         }
     }
     
-    public static function addToCart() {
-        $data = filter_input_array(INPUT_POST);
-
+    public static function addToCart($id) {
+        $newid['id_pk'] = $id;
+        $data = AdminDB::pridobiPK($newid);
+        
         if (self::checkValues($data)) {
-            $kCena = $data['cena']*$data['kolicina'];
-            $data['cena'] = $kCena;
-            AdminDB::buy($data);
+            AdminDB::addToCart($data);
             echo ViewHelper::redirect(BASE_URL . "store/");
         } else {
-            self::pridobiEno($id);
+            self::pridobiEno($data['id_produkt']);
         }
     }
     

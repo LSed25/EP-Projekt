@@ -79,8 +79,8 @@ $urls = [
         StoreController::vPK();
     },
 
-    "/^store\/cart$/" => function ($method) {
-        StoreController::addToCart();
+    "/^store\/cart\/(\d+)$/" => function ($method, $id) {
+        StoreController::addToCart($id);
     },
             
     "/^store\/admin$/" => function ($method) {

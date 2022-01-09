@@ -182,9 +182,31 @@ class AdminDB extends AbstractDB {
                         . " VALUES (:id_produkt, :kolicina, :cena)", $params);
     }
     
+    public static function pridobiPKID() {
+        $id = parent::query("SELECT LAST_INSERT_ID()");
+
+        if (count($id) == 1) {
+            return $id[0];
+        } else {
+            throw new InvalidArgumentException("ID ne obstaja");
+        }
+    }
+    
+    public static function pridobiPK(array $id) {
+        $pk = parent::query("SELECT id_pk, Cena"
+                        . " FROM Produkt_kosarica"
+                        . " WHERE id_pk = :id_pk", $id);
+
+        if (count($pk) == 1) {
+            return $pk[0];
+        } else {
+            throw new InvalidArgumentException("PK ne obstaja");
+        }
+    }
+    
     public static function addToCart(array $params) {
-        return parent::modify("INSERT INTO Produkt_kosarica (id_produkt, Kolicina, Cena) "
-                        . " VALUES (:id_produkt, :kolicina, :cena)", $params);
+        return parent::modify("INSERT INTO Kosarica (id_artikel, id_strankakosarica, Cena) "
+                        . " VALUES (:id_pk, {$_SESSION['id']['id']}, :Cena)", $params);
     }
     
     public static function getUser(array $id) {

@@ -178,6 +178,8 @@ abstract class AbstractDB {
     
     public static abstract function buy(array $params);
     
+    public static abstract function pridobiPK(array $id);
+    
     public static abstract function addToCart(array $params);
     
 }
