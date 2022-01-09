@@ -177,9 +177,14 @@ class AdminDB extends AbstractDB {
                         . " WHERE id = :id", $params);
     }
     
-    public static function addToCart() {
-        return parent::modify("INSERT INTO Stranka (Ime, Priimek, Enaslov, Geslo, Ulica, Hisna_st, Posta, Postna_st) "
-                        . " VALUES (:firstname, :lastname, :email, :password, :ulica, :hisnast, :posta, :postnast)", $params);
+    public static function buy(array $params) {
+        return parent::modify("INSERT INTO Produkt_kosarica (id_produkt, Kolicina, Cena) "
+                        . " VALUES (:id_produkt, :kolicina, :cena)", $params);
+    }
+    
+    public static function addToCart(array $params) {
+        return parent::modify("INSERT INTO Produkt_kosarica (id_produkt, Kolicina, Cena) "
+                        . " VALUES (:id_produkt, :kolicina, :cena)", $params);
     }
     
     public static function getUser(array $id) {

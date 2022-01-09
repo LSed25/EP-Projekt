@@ -31,6 +31,32 @@ class StoreController {
         echo ViewHelper::render("view/view-stranka-profil.php", AdminDB::getUser(["id" => $id]));
     }
     
+    public static function vPK() {
+        $data = filter_input_array(INPUT_POST);
+
+        if (self::checkValues($data)) {
+            $kCena = $data['cena']*$data['kolicina'];
+            $data['cena'] = $kCena;
+            AdminDB::buy($data);
+            echo ViewHelper::redirect(BASE_URL . "store/cart");
+        } else {
+            self::pridobiEno($id);
+        }
+    }
+    
+    public static function addToCart() {
+        $data = filter_input_array(INPUT_POST);
+
+        if (self::checkValues($data)) {
+            $kCena = $data['cena']*$data['kolicina'];
+            $data['cena'] = $kCena;
+            AdminDB::buy($data);
+            echo ViewHelper::redirect(BASE_URL . "store/");
+        } else {
+            self::pridobiEno($id);
+        }
+    }
+    
     public static function editForm($params) {
         if (is_array($params)) {
             $values = $params;

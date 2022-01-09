@@ -74,7 +74,15 @@ $urls = [
             StoreController::editForm($id);
         }
     },
+    
+    "/^store\/buy$/" => function ($method) {
+        StoreController::vPK();
+    },
 
+    "/^store\/cart$/" => function ($method) {
+        StoreController::addToCart();
+    },
+            
     "/^store\/admin$/" => function ($method) {
         if ($method == "POST") {
             AdminController::admin();
