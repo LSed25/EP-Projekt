@@ -142,6 +142,29 @@ class AdminDB extends AbstractDB {
         $statement->bindParam(":newpassword", $newpassword, PDO::PARAM_STR);
         $statement->execute();
     }
+
+    public static function getProductData($id) {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("SELECT * FROM Produkt
+            WHERE id=:id");
+        $statement->bindParam(":id", $id, PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetch();
+    }
+
+    public static function insertProduct($avtor, $naslov, $leto_izdaje, $cena) {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("INSERT INTO Produkt (Avtor, Naslov, Leto_izdaje, Cena)
+            VALUES (:avtor, :naslov, :leto, :cena)");
+        $statement->bindParam(":avtor", $avtor, PDO::PARAM_STR);
+        $statement->bindParam(":naslov", $naslov, PDO::PARAM_STR);
+        $statement->bindParam(":leto", $leto_izdaje, PDO::PARAM_INT);
+        $statement->bindParam(":cena", $cena, PDO::PARAM_STR);
+        $statement->execute();
+    }
     
     
     

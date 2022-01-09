@@ -152,6 +152,68 @@ class AdminController {
         return $result;
     }
 
+    public static function produkti() {
+        $do = $_POST["do"];
+
+        switch($do){
+            case "search":
+                $id_produkt = $_POST["id"];
+
+                $podatki = AdminDB::getProductData($id_produkt);
+
+                if ($podatki) {
+                    echo ViewHelper::render("view/view-prodajalec-narocilo.php", $podatki);
+                }
+                else {
+                    $podatki = AdminDB::getSellerData($_SESSION["id"]);
+                    $podatki["message"] = "Produkt s tem ID ne obstaja.";
+                    echo ViewHelper::render("view/view-prodajalec.php", $podatki);
+                }
+                
+                break;
+            case "add":
+                $avtor = $_POST["author"];
+                $naslov = $_POST["title"];
+                $leto_izdaje = $_POST["year"];
+                $cena = $_POST["price"];
+
+                AdminDB::insertProduct($avtor, $naslov, $leto_izdaje, $cena);
+         
+                $podatki = AdminDB::getSellerData($_SESSION["id"]);
+                $podatki["message"] = "Produkt je bil uspešno dodan.";
+                echo ViewHelper::render("view/view-prodajalec.php", $podatki);
+                break;
+            case "update":
+                $id = $_POST["id"];
+                $ime = $_POST["name"];
+                $priimek = $_POST["surname"];
+                $email = $_POST["newemail"];
+
+                AdminDB::updateSeller($id,$ime, $priimek, $email);
+                
+                $podatki = AdminDB::getSellerData($id);
+                $podatki["message"] = "Prodajalec je bil uspešno posodobljen.";
+                echo ViewHelper::render("view/view-admin-prodajalec.php", $podatki);
+                break;
+            case "status":
+                $id = $_POST["id"];
+
+                if ($_POST["status"] == true) {
+                    $updatestatus = false;
+                    $podatki["message"] = "Prodajalec je bil uspešno deaktiviran.";
+                }
+                else {
+                    $updatestatus = true;
+                    $podatki["message"] = "Prodajalec je bil uspešno aktiviran.";
+                }
+
+                AdminDB::activateSeller($id, $updatestatus);
+                $podatki = AdminDB::getSellerData($id);
+                echo ViewHelper::render("view/view-admin-prodajalec.php", $podatki);
+                break;  
+        }
+    }
+
     public static function getRules() {
         return [
             'name' => FILTER_SANITIZE_SPECIAL_CHARS,

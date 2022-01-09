@@ -112,6 +112,12 @@ $urls = [
             AdminController::prodajalecForm();
         }
     },
+
+    "/^store\/produkt$/" => function ($method) {
+        if ($method == "POST") {
+            AdminController::produkti();
+        }
+    },
             
     "/^store\/(\d+)$/" => function ($method, $id) {
         StoreController::pridobiEno($id);
