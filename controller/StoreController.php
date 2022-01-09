@@ -202,14 +202,14 @@ class StoreController {
         else if ($role == "prodajalec") {
             $id_prodajalec = AdminDB::getSellerID($email);
 
-            if ($id != NULL) {
+            if ($id_prodajalec != NULL) {
                 $confirmpassword = AdminDB::getSellerPassword($id_prodajalec)["Geslo"];
 
                 $verified = password_verify($password, $confirmpassword);
                 if ($verified) {
                     $podatki = AdminDB::getSellerData($id_prodajalec);
 
-                    if ($podatki["Aktiviran"] == true) {
+                    if ($podatki["Aktiviran"] == 1) {
                         $_SESSION["id"] = $id_prodajalec;
                         $_SESSION["role"] = $role;
                         $_SESSION["loggedIn"] = true;
