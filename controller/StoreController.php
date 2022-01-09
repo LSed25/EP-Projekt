@@ -47,6 +47,21 @@ class StoreController {
         }
     }
     
+    public static function cartEdit($id) {
+        $data = filter_input_array(INPUT_POST);
+        $data["id"] = $id;
+        
+        if (self::checkValues($data)) {
+            $kCena = $data['cena']*$data['amount'];
+            $data['cena'] = $kCena;
+            
+            AdminDB::buyEdit($data);
+            ViewHelper::redirect(BASE_URL . "/store/user/cart/" . $_SESSION["id"]["id"]);
+        } else {
+            self::cart($_SESSION["id"]);
+        }
+    }
+    
     public static function cartSubmit($id) {
         $data = filter_input_array(INPUT_POST);
         if (self::checkValues($data)) {
@@ -73,6 +88,12 @@ class StoreController {
     public static function cartDelete($id) {
         AdminDB::emptyCart(["id" => $id]);
         echo ViewHelper::redirect(BASE_URL . "store/");
+        
+    }
+    
+    public static function cartDeleteOne($id) {
+        AdminDB::buyDelete(["id" => $id]);
+        echo ViewHelper::redirect(BASE_URL . "store/user/cart/" . $_SESSION["id"]["id"]);
         
     }
     
