@@ -162,7 +162,7 @@ class AdminController {
                 $podatki = AdminDB::getProductData($id_produkt);
 
                 if ($podatki) {
-                    echo ViewHelper::render("view/view-prodajalec-narocilo.php", $podatki);
+                    echo ViewHelper::render("view/view-prodajalec-produkt.php", $podatki);
                 }
                 else {
                     $podatki = AdminDB::getSellerData($_SESSION["id"]);
@@ -185,31 +185,32 @@ class AdminController {
                 break;
             case "update":
                 $id = $_POST["id"];
-                $ime = $_POST["name"];
-                $priimek = $_POST["surname"];
-                $email = $_POST["newemail"];
+                $avtor = $_POST["author"];
+                $naslov = $_POST["title"];
+                $leto_izdaje = $_POST["year"];
+                $cena = $_POST["price"];
 
-                AdminDB::updateSeller($id,$ime, $priimek, $email);
+                AdminDB::updateProduct($id, $avtor, $naslov, $leto_izdaje, $cena);
                 
-                $podatki = AdminDB::getSellerData($id);
-                $podatki["message"] = "Prodajalec je bil uspešno posodobljen.";
-                echo ViewHelper::render("view/view-admin-prodajalec.php", $podatki);
+                $podatki = AdminDB::getProductData($id);
+                $podatki["message"] = "Produkt je bil uspešno posodobljen.";
+                echo ViewHelper::render("view/view-prodajalec-produkt.php", $podatki);
                 break;
             case "status":
                 $id = $_POST["id"];
 
                 if ($_POST["status"] == true) {
                     $updatestatus = false;
-                    $podatki["message"] = "Prodajalec je bil uspešno deaktiviran.";
+                    $podatki["message"] = "Produkt je bil uspešno deaktiviran.";
                 }
                 else {
                     $updatestatus = true;
-                    $podatki["message"] = "Prodajalec je bil uspešno aktiviran.";
+                    $podatki["message"] = "Produkt je bil uspešno aktiviran.";
                 }
 
-                AdminDB::activateSeller($id, $updatestatus);
-                $podatki = AdminDB::getSellerData($id);
-                echo ViewHelper::render("view/view-admin-prodajalec.php", $podatki);
+                AdminDB::activateProduct($id, $updatestatus);
+                $podatki = AdminDB::getProductData($id);
+                echo ViewHelper::render("view/view-prodajalec-produkt.php", $podatki);
                 break;  
         }
     }

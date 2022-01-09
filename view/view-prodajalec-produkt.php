@@ -21,7 +21,6 @@
     <form action="<?= BASE_URL . "store/produkt" ?>" method="post">
          <input type="hidden" name="do" value="update">
          <input type="hidden" name="id" value="<?=$variables["id"]?>">
-         <input type="hidden" name="do" value="add">
          <label for="author"><b>Avtor</b></label>
          <input type="text" placeholder="Vnesi ime in priimek avtorja" name="author" value="<?=$variables["Avtor"]?>">
          <label for="title"><b>Naslov</b></label>

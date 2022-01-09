@@ -41,7 +41,7 @@
 </div>
 
 <div>
-    <h2>Upravljanje z produkti</h2>
+    <h2>Upravljanje s produkti</h2>
 
     <h3>Dodaj nov produkt</h3>
     <form action="<?= BASE_URL . "store/produkt" ?>" method="post">

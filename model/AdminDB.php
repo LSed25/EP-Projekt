@@ -165,6 +165,29 @@ class AdminDB extends AbstractDB {
         $statement->bindParam(":cena", $cena, PDO::PARAM_STR);
         $statement->execute();
     }
+
+    public static function updateProduct($id, $avtor, $naslov, $leto_izdaje, $cena) {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("UPDATE Produkt SET Avtor=:avtor, Naslov=:naslov, Leto_izdaje=:leto, Cena=:cena
+            WHERE id=:id");
+        $statement->bindParam(":id", $id, PDO::PARAM_INT);
+        $statement->bindParam(":avtor", $avtor, PDO::PARAM_STR);
+        $statement->bindParam(":naslov", $naslov, PDO::PARAM_STR);
+        $statement->bindParam(":leto", $leto_izdaje, PDO::PARAM_INT);
+        $statement->bindParam(":cena", $cena, PDO::PARAM_STR);
+        $statement->execute();
+    }
+
+    public static function activateProduct($id, $updatestatus) {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("UPDATE Produkt
+           SET Aktiviran=:newstatus WHERE id=:id");
+        $statement->bindParam(":id", $id, PDO::PARAM_INT);
+        $statement->bindParam(":newstatus", $updatestatus, PDO::PARAM_BOOL);
+        $statement->execute();
+    }
     
     
     

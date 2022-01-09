@@ -219,19 +219,19 @@ class StoreController {
                     else {
                         $_SESSION["loggedIn"] = false;
                         $podatki["message"] = "Prijava ni bila mogoča - profil prodajalca je deaktiviran.";
-                        echo ViewHelper::render("view/syslogin.php", $message);
+                        echo ViewHelper::render("view/syslogin.php", $podatki);
                     }
                 }
                 else {
                     $_SESSION["loggedIn"] = false;
                     $podatki["message"] = "Geslo je napačno.";
-                    echo ViewHelper::render("view/syslogin.php", $message);
+                    echo ViewHelper::render("view/syslogin.php", $podatki);
                 }
             }
             else {
                 $_SESSION["loggedIn"] = false;
                 $podatki["message"] = "Prijava ni bila uspešna.";
-                echo ViewHelper::render("view/syslogin.php", $message);
+                echo ViewHelper::render("view/syslogin.php", $podatki);
             }
         }
     }
@@ -251,7 +251,7 @@ class StoreController {
                 echo ViewHelper::render("view/view-stranka-profil.php");
             }
             else {
-                $message = "Sprememba gesla ni bila uspešna - staro geslo se ne ujema.";
+                $podatki["message"] = "Sprememba gesla ni bila uspešna - staro geslo se ne ujema.";
             }
         }
         else if ($role == "administrator") {
