@@ -24,12 +24,12 @@
             <p><b>ID NAROČILA: </b><?php echo $narocilo["id_narocilo"]; ?></p>
             <p><b>Datum naročila: </b><?php echo $narocilo["Datum"]; ?></p>
             <form action="<?= BASE_URL . "store/narocilo" ?>" method="post">
-                 <input type="hidden" name="do" value="confirm">
+                 <input type="hidden" name="status" value="potrjeno">
                  <input type="hidden" name="id" value="<?=$narocilo["id_narocilo"]?>">
                  <button type="submit">Potrdi naročilo</button>
             </form>   
             <form action="<?= BASE_URL . "store/narocilo" ?>" method="post">
-                 <input type="hidden" name="do" value="cancel">
+                 <input type="hidden" name="status" value="preklicano">
                  <input type="hidden" name="id" value="<?=$narocilo["id_narocilo"]?>">
                  <button type="submit">Prekliči naročilo</button>
             </form>           
@@ -49,7 +49,7 @@
             <p><b>ID NAROČILA: </b><?php echo $narocilo["id_narocilo"]; ?></p>
             <p><b>Datum naročila: </b><?php echo $narocilo["Datum"]; ?></p>
             <form action="<?= BASE_URL . "store/narocilo" ?>" method="post">
-                 <input type="hidden" name="do" value="revoke">
+                 <input type="hidden" name="status" value="stornirano">
                  <input type="hidden" name="id" value="<?=$narocilo["id_narocilo"]?>">
                  <button type="submit">Storniraj naročilo</button>
             </form>       

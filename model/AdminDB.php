@@ -240,7 +240,15 @@ class AdminDB extends AbstractDB {
         return $statement->fetchAll();
     }
     
-    
+    public static function setOrderStatus($id, $status) {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("UPDATE Narocilo
+           SET `Status`=:newstatus WHERE id_narocilo=:id");
+        $statement->bindParam(":id", $id, PDO::PARAM_INT);
+        $statement->bindParam(":newstatus", $status, PDO::PARAM_STR);
+        $statement->execute();
+    }
     
     
     // ----------------

@@ -303,6 +303,14 @@ class AdminController {
         }
     }
 
+    public static function narocila() {
+        $id = $_POST["id"];
+        $status = $_POST["status"];
+        AdminDB::setOrderStatus($id, $status);
+
+        echo ViewHelper::redirect(BASE_URL . "store/narocilo");
+    }
+
     public static function getRules() {
         return [
             'name' => FILTER_SANITIZE_SPECIAL_CHARS,

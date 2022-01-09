@@ -137,6 +137,9 @@ $urls = [
         }
     },
     "/^store\/narocilo$/" => function ($method) {
+        if ($method == "POST") {
+            AdminController::narocila();
+        }
         AdminController::zgodovinaNarocil();
     },
             
