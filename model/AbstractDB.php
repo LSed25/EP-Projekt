@@ -176,5 +176,7 @@ abstract class AbstractDB {
     
     public static abstract function getUser(array $id);
     
+    public static abstract function addToCart();
+    
 }
 

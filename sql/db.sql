@@ -103,6 +103,7 @@ CREATE TABLE IF NOT EXISTS `bookstore`.`Produkt_kosarica` (
   `id_pk` INT NOT NULL AUTO_INCREMENT,
   `id_produkt` INT NOT NULL,
   `Kolicina` INT NOT NULL DEFAULT 1,
+  `Cena` DECIMAL NOT NULL,    
   PRIMARY KEY (`id_pk`),
   INDEX `id_produkt_idx` (`id_produkt` ASC) VISIBLE,
   CONSTRAINT `id_produkt`
@@ -120,6 +121,7 @@ CREATE TABLE IF NOT EXISTS `bookstore`.`Kosarica` (
   `id_kosarica` INT NOT NULL AUTO_INCREMENT,
   `id_artikel` INT NOT NULL,
   `id_strankakosarica` INT NULL,
+  `Cena` DECIMAL NOT NULL,
   PRIMARY KEY (`id_kosarica`),
   INDEX `id_artikel_idx` (`id_artikel` ASC) VISIBLE,
   INDEX `id_stranka_idx` (`id_strankakosarica` ASC) VISIBLE,
